@@ -58,10 +58,23 @@ looker.plugins.visualizations.add({
 
     // Grab the first cell of the data
     var firstRow = data[0];
-    var firstCell = firstRow[queryResponse.fields.dimensions[1].name];
+    var firstCell = firstRow[queryResponse.fields.dimensions[0].name];
+    var secCell = firstRow[queryResponse.fields.dimensions[1].name];
+    var trdCell = firstRow[queryResponse.fields.dimensions[2].name];
+    var fCell = firstRow[queryResponse.fields.dimensions[3].name];
+    var fiCell = firstRow[queryResponse.fields.dimensions[4].name];
+    var table = ```<table>
+      <tr>
+        <th>${firstCell}</th>
+        <th>${secCell}</th>
+        <th>${trdCell}</th>
+        <th>${fCell}</th>
+        <th>${fiCell}</th>
+      </tr>
+    </table>```
 
     // Insert the data into the page
-    this._textElement.innerHTML = LookerCharts.Utils.htmlForCell(firstCell);
+    this._textElement.innerHTML = LookerCharts.Utils.htmlForCell(table);
 
     // Set the size to the user-selected size
     if (config.font_size == "small") {
