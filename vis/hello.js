@@ -73,6 +73,7 @@ looker.plugins.visualizations.add({
       </tr>
     </table>```
 
+
     // Insert the data into the page
     this._textElement.innerHTML = LookerCharts.Utils.htmlForCell(table);
 
