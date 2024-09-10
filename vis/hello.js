@@ -1,9 +1,4 @@
 looker.plugins.visualizations.add({
-  // Id and Label are legacy properties that no longer have any function besides documenting
-  // what the visualization used to have. The properties are now set via the manifest
-  // form within the admin/visualizations page of Looker
-  id: "hello_world",
-  label: "Hello World",
   options: {
     font_size: {
       type: "string",
@@ -29,6 +24,8 @@ looker.plugins.visualizations.add({
           flex-direction: column;
           justify-content: center;
           text-align: center;
+          background-color: red;
+          color: blue
         }
         .hello-world-text-large {
           font-size: 72px;
