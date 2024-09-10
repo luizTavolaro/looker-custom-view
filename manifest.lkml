@@ -1,6 +1,5 @@
-
-    visualization: {
-        id: "lookercustomvistest"
-        label: "lookercustomvistest"
-        file: "vis/hello_world.js"
-    }
+visualization: {
+  id: "LOOKERTESTFROMMANIFESTFILE"
+  label: "LOOKER TEST FROM MANIFEST FILE"
+  file: "vis/hello.js"
+}
