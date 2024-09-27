@@ -64,7 +64,14 @@ looker.plugins.visualizations.add({
     var fiCell = firstRow[queryResponse.fields.dimensions[4].name];
 
     // Insert the data into the page
-    this._textElement.innerHTML = LookerCharts.Utils.htmlForCell(firstCell);
+    // this._textElement.innerHTML = LookerCharts.Utils.htmlForCell(firstCell);
+    element.innerHTML += `
+      <p>firstCell</p>
+      <p>secCell</p>
+      <p>trdCell</p>
+      <p>fCell</p>
+      <p>fiCell</p>
+    `;
 
     // Set the size to the user-selected size
     if (config.font_size == "small") {
