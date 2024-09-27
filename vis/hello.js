@@ -24,7 +24,6 @@ looker.plugins.visualizations.add({
           flex-direction: column;
           justify-content: center;
           text-align: center;
-          background-color: red;
           color: blue
         }
         .hello-world-text-large {
@@ -64,12 +63,10 @@ looker.plugins.visualizations.add({
     var fCell = firstRow[queryResponse.fields.dimensions[3].name];
     var fiCell = firstRow[queryResponse.fields.dimensions[4].name];
 
+    var cel = `<p>${firstCell}, ${secCell}, ${trdCell}, ${fCell}, ${fiCell}</p>`
+
     // Insert the data into the page
-    this._textElement.innerHTML = LookerCharts.Utils.htmlForCell(firstCell);
-    this._textElement.innerHTML = LookerCharts.Utils.htmlForCell(secCell);
-    this._textElement.innerHTML = LookerCharts.Utils.htmlForCell(trdCell);
-    this._textElement.innerHTML = LookerCharts.Utils.htmlForCell(fCell);
-    this._textElement.innerHTML = LookerCharts.Utils.htmlForCell(fiCell);
+    this._textElement.innerHTML = LookerCharts.Utils.htmlForCell(cel);
 
     // Set the size to the user-selected size
     if (config.font_size == "small") {
