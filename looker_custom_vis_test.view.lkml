@@ -15,7 +15,7 @@ SELECT
 
 FROM `dm_titulos.vendas_caps_crescimento`
 
-WHERE produto_codigo = 'hipercaplitoral';;
+WHERE produto_codigo in ('hipercaplitoral', 'hipercapbrasil', 'hipercapmogi');;
 
 #--GROUP BY 1,2,3,4,5;;
   }
@@ -68,5 +68,5 @@ WHERE produto_codigo = 'hipercaplitoral';;
     sql: ${promo_anterior_titulos} ;;
     label: "Total de Títulos"
   }
-  
+
 }

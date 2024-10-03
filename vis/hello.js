@@ -18,75 +18,101 @@ looker.plugins.visualizations.add({
     element.innerHTML = `
       <style>
         .hello-world-vis {
-          /* Vertical centering */
           height: 100%;
           display: flex;
           flex-direction: column;
           justify-content: center;
           text-align: center;
-          color: blue
+          color: blue;
         }
         .hello-world-text-large {
-          font-size: 72px;
+          font-size: 24px;
         }
         .hello-world-text-small {
-          font-size: 18px;
+          font-size: 14px;
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+        table, th, td {
+          border: 1px solid black;
+        }
+        th, td {
+          padding: 8px;
+          text-align: left;
         }
       </style>
     `;
 
-    // Create a container element to let us center the text.
+    // Create a container element to hold the visualization
     var container = element.appendChild(document.createElement("div"));
     container.className = "hello-world-vis";
 
-    // Create an element to contain the text.
-    this._textElement = container.appendChild(document.createElement("div"));
-
+    // Create an element to contain the table
+    this._tableElement = container.appendChild(document.createElement("div"));
   },
-  // Render in response to the data or settings changing
+
   updateAsync: function(data, element, config, queryResponse, details, done) {
 
     // Clear any errors from previous updates
     this.clearErrors();
 
-    // Throw some errors and exit if the shape of the data isn't what this chart needs
-    if (queryResponse.fields.dimensions.length == 0) {
-      this.addError({title: "No Dimensions", message: "This chart requires dimensions."});
+    // Check if there are no dimensions or measures
+    if (queryResponse.fields.dimensions.length == 0 && queryResponse.fields.measures.length == 0) {
+      this.addError({title: "No Data", message: "This chart requires dimensions or measures."});
       return;
     }
 
-    // Grab the first cell of the data
-    var firstRow = data[0];
-    var firstCell = firstRow[queryResponse.fields.dimensions[0].name];
-    var secCell = firstRow[queryResponse.fields.dimensions[1].name];
-    var trdCell = firstRow[queryResponse.fields.dimensions[2].name];
-    var fCell = firstRow[queryResponse.fields.measures[0].name];
-    var fiCell = firstRow[queryResponse.fields.measures[1].name];
-
-    firstCell = LookerCharts.Utils.htmlForCell(firstCell);
-    secCell = LookerCharts.Utils.htmlForCell(secCell);
-    trdCell = LookerCharts.Utils.htmlForCell(trdCell);
-    fCell = LookerCharts.Utils.htmlForCell(fCell);
-    fiCell = LookerCharts.Utils.htmlForCell(fiCell);
-
-    // Insert the data into the page
-    // this._textElement.innerHTML = LookerCharts.Utils.htmlForCell(firstCell);
-    this._textElement.innerHTML = `
-      <p>${firstCell}</p>
-      <p>${secCell}</p>
-      <p>${trdCell}</p>
-      <p>${fCell}</p>
-      <p>${fiCell}</p>
+    // Build a table header
+    var tableHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Canal de Venda</th>
+            <th>Total de Vendas</th>
+            <th>Valor Total</th>
+          </tr>
+        </thead>
+        <tbody>
     `;
+
+    // Iterate over the data and build the rows for the table
+    data.forEach(function(row) {
+      var produto = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[0].name]); // Produto
+      var canal = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[1].name]);   // Canal de Venda
+      var totalVendas = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.measures[0].name]); // Total de Vendas
+      var valorTotal = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.measures[1].name]); // Valor Total
+
+      // Build the table row with the data
+      tableHTML += `
+        <tr>
+          <td>${produto}</td>
+          <td>${canal}</td>
+          <td>${totalVendas}</td>
+          <td>${valorTotal}</td>
+        </tr>
+      `;
+    });
+
+    // Close the table tag
+    tableHTML += `
+        </tbody>
+      </table>
+    `;
+
+    // Insert the table into the container
+    this._tableElement.innerHTML = tableHTML;
 
     // Set the size to the user-selected size
     if (config.font_size == "small") {
-      this._textElement.className = "hello-world-text-small";
+      this._tableElement.className = "hello-world-text-small";
     } else {
-      this._textElement.className = "hello-world-text-large";
+      this._tableElement.className = "hello-world-text-large";
     }
 
-    // We are done rendering! Let Looker know.
-    done()
+    // Let Looker know rendering is complete
+    done();
   }
 });
