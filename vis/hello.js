@@ -60,8 +60,8 @@ looker.plugins.visualizations.add({
     var firstCell = firstRow[queryResponse.fields.dimensions[0].name];
     var secCell = firstRow[queryResponse.fields.dimensions[1].name];
     var trdCell = firstRow[queryResponse.fields.dimensions[2].name];
-    var fCell = firstRow[queryResponse.fields.dimensions[3].name];
-    var fiCell = firstRow[queryResponse.fields.dimensions[4].name];
+    var fCell = firstRow[queryResponse.fields.measures[3].name];
+    var fiCell = firstRow[queryResponse.fields.measures[4].name];
 
     firstCell = LookerCharts.Utils.htmlForCell(firstCell);
     secCell = LookerCharts.Utils.htmlForCell(secCell);
