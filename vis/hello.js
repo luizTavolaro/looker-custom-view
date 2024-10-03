@@ -16,37 +16,42 @@ looker.plugins.visualizations.add({
     element.innerHTML = `
       <style>
         .resumo {
+          font-size: 26px;
           margin: 20px;
+          font-family: Helvetica, Arial, sans-serif;
         }
-  
+
         .resumo header {
-          display: flex;
-          justify-content: space-around;
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 15px;
         }
-  
-        section {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background-color: gray;
-          width: 100%;
+
+        section{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(210, 210, 210, 0.5);
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            width: 100%;
+            border-radius: 10px;
         }
-  
+
         section .edicao {
-          width: 12%;
+            width: 12%;
         }
-  
+
         section .valor {
-          width: 13%;
+            width: 13%;
         }
-  
+
         section .totais {
-          display: flex;
-          width: 75%;
+            display: flex;
+            width: 75%;
         }
-  
+
         section .totais div {
-          width: 100%;
+            width: 100%;
         }
       </style>
     `;
