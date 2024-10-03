@@ -57,18 +57,46 @@ looker.plugins.visualizations.add({
   
     let totalsByProduct = {};
   
-    // Build the table header
-    var tableHTML = `
-      <table>
-        <thead>
-          <tr>
-            <th>Produto</th>
-            <th>Canal de Venda</th>
-            <th>Total de Vendas</th>
-            <th>Valor Total</th>
-          </tr>
-        </thead>
-        <tbody>
+    // Define the CSS style
+    element.innerHTML = `
+      <style>
+        .resumo {
+          margin: 20px;
+        }
+  
+        .resumo header {
+          display: flex;
+          justify-content: space-around;
+        }
+  
+        section {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: gray;
+          width: 100%;
+        }
+  
+        section * {
+        }
+  
+        section .edicao {
+          width: 12%;
+        }
+  
+        section .valor {
+          width: 13%;
+        }
+  
+        section .totais {
+          display: flex;
+          width: 75%;
+        }
+  
+        section .totais div {
+          width: 100%;
+        }
+      </style>
     `;
   
     // First pass: accumulate totals and store rows by product and canal
@@ -96,39 +124,53 @@ looker.plugins.visualizations.add({
       totalsByProduct[produto].canais[canal].valorTotal += valorTotal;
     });
   
-    // Second pass: generate table rows with totals first, then product details
-    Object.keys(totalsByProduct).forEach(function(produto) {
-      // Add the total row first (with product name and centered)
-      tableHTML += `
-        <tr>
-          <td style="text-align:center;"><strong>${produto}</strong></td>
-          <td><strong>Total</strong></td>
-          <td><strong>${totalsByProduct[produto].totalVendas}</strong></td>
-          <td><strong>${totalsByProduct[produto].valorTotal}</strong></td>
-        </tr>
-      `;
+    // Build the HTML for each product
+    let htmlContent = '';
   
-      // Iterate over the product's channels
-      Object.keys(totalsByProduct[produto].canais).forEach(function(canal) {
-        var totalVendas = totalsByProduct[produto].canais[canal].totalVendas;
-        var valorTotal = totalsByProduct[produto].canais[canal].valorTotal;
-        
-        tableHTML += `
-          <tr>
-            <td></td> <!-- Empty product cell -->
-            <td>${canal}</td>
-            <td>${totalVendas}</td>
-            <td>${valorTotal}</td>
-          </tr>
-        `;
-      });
+    Object.keys(totalsByProduct).forEach(function(produto) {
+      var totalVendas = totalsByProduct[produto].totalVendas;
+      var valorTotal = totalsByProduct[produto].valorTotal;
+  
+      // For each product, create the HTML block
+      htmlContent += `
+        <div class="resumo">
+          <header>
+            <span>${produto}</span>
+            <span>"Data Sorteio"</span>
+          </header>
+  
+          <section>
+            <div class="edicao">
+              "Edição"
+            </div>
+            <div class="valor">
+              "Valor"
+            </div>
+            <div class="totais">
+              <div>
+                <div>${totalVendas}</div>
+                <div>${totalVendas}</div>
+                <div>${totalVendas}</div>
+                <div>${totalVendas}</div>
+                <div>${totalVendas}</div>
+              </div>
+              <div>
+                <div>${valorTotal}</div>
+                <div>${valorTotal}</div>
+                <div>${valorTotal}</div>
+                <div>${valorTotal}</div>
+                <div>${valorTotal}</div>
+              </div>
+            </div>
+          </section>
+        </div>
+      `;
     });
   
-    tableHTML += `</tbody></table>`;
-  
-    // Insert the table into the container
-    this._tableElement.innerHTML = tableHTML;
+    // Insert the generated HTML into the container
+    this._tableElement.innerHTML = htmlContent;
   
     done();
   }
+  
 });
