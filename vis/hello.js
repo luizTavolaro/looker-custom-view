@@ -115,22 +115,29 @@ looker.plugins.visualizations.add({
             <div class="totais">
               <!-- Div for Product Total -->
               <div>
-                <div><strong>Total Produto: ${totalVendas}</strong></div>
-              </div>
-              <div>
-                <div><strong>Total Produto: ${valorTotal}</strong></div>
+                Total: ${totalVendas}
               </div>
   
               <!-- Divs for Each Canal -->
               ${Object.keys(totalsByProduct[produto].canais).map(canal => {
                 var canalTotalVendas = totalsByProduct[produto].canais[canal].totalVendas;
+                return `
+                <div>
+                  Canal ${canal} - Vendas: ${canalTotalVendas}
+                </div>
+                `;
+              }).join('')}
+
+              <div>
+                Total: ${valorTotal}
+              </div>
+
+              <!-- Divs for Each Canal -->
+              ${Object.keys(totalsByProduct[produto].canais).map(canal => {
                 var canalValorTotal = totalsByProduct[produto].canais[canal].valorTotal;
                 return `
                 <div>
-                  <div>Canal ${canal} - Vendas: ${canalTotalVendas}</div>
-                </div>
-                <div>
-                  <div>Canal ${canal} - Valor: ${canalValorTotal}</div>
+                  Canal ${canal} - Vendas: ${canalValorTotal}
                 </div>
                 `;
               }).join('')}
