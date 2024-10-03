@@ -20,6 +20,10 @@ looker.plugins.visualizations.add({
             font-style: italic;
         }
 
+        .detalhes{
+            display: none;
+        }
+
         .resumo {
             font-size: 26px;
             margin: 20px;
@@ -45,10 +49,10 @@ looker.plugins.visualizations.add({
 
         section .edicao {
             width: 12%;
-            padding: 0px 15px;
+            padding: 0px 0px 0px 50px;
         }
 
-        section * p {
+        p {
             padding: 0px;
             margin: 0px;
         }
@@ -78,6 +82,17 @@ looker.plugins.visualizations.add({
             border-left: solid 2px black;
         }
 
+        @media (max-width: 480px) {
+            .detalhes {
+                display: block;
+            }
+            .edicao {
+                display: none;
+            }
+            .valor {
+                display: none;
+            }
+        }
       </style>
     `;
 
@@ -135,10 +150,21 @@ looker.plugins.visualizations.add({
 
       // For each product, create the HTML block
       htmlContent += `
-        <div class="resumo">
           <header>
-            <span>${produto}</span>
-            <span>Data do Sorteio: ${sorteio}</span>
+            <div>
+                <span>${produto}</span>
+                <div class="detalhes">
+                  <div>
+                    <p class="legenda">Edição</p>
+                    <p>${edicao}</p>
+                  </div>
+                  <div>
+                    <p class="legenda">Valor</p>
+                    <p>${valor}</p>
+                </div>
+              </div>
+            </div>
+            <span>Data Sorteio: ${sorteio}</span>
           </header>
 
           <section>
