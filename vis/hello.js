@@ -54,7 +54,6 @@ looker.plugins.visualizations.add({
   },
 
   updateAsync: function(data, element, config, queryResponse, details, done) {
-updateAsync: function(data, element, config, queryResponse, details, done) {
   this.clearErrors();
 
   if (queryResponse.fields.dimensions.length == 0 && queryResponse.fields.measures.length == 0) {
@@ -121,6 +120,5 @@ updateAsync: function(data, element, config, queryResponse, details, done) {
   this._tableElement.innerHTML = tableHTML;
 
   done();
-}
-
+  }
 });
