@@ -11,10 +11,8 @@ looker.plugins.visualizations.add({
       default: "large"
     }
   },
-  // Set up the initial state of the visualization
+  
   create: function(element, config) {
-
-    // Insert a <style> tag with some styles we'll use later.
     element.innerHTML = `
       <style>
         .hello-world-vis {
@@ -44,15 +42,11 @@ looker.plugins.visualizations.add({
         }
       </style>
     `;
-
-    // Create a container element to hold the visualization
     var container = element.appendChild(document.createElement("div"));
     container.className = "hello-world-vis";
-
-    // Create an element to contain the table
     this._tableElement = container.appendChild(document.createElement("div"));
   },
-
+  
   updateAsync: function(data, element, config, queryResponse, details, done) {
     this.clearErrors();
   
@@ -62,7 +56,6 @@ looker.plugins.visualizations.add({
     }
   
     let totalsByProduct = {};
-    let rowsByProduct = {};
   
     // Build the table header
     var tableHTML = `
@@ -78,7 +71,7 @@ looker.plugins.visualizations.add({
         <tbody>
     `;
   
-    // First pass: accumulate totals and store rows by product
+    // First pass: accumulate totals and store rows by product and canal
     data.forEach(function(row) {
       let produto = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[0].name]);
       let canal = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[1].name]);
@@ -87,55 +80,47 @@ looker.plugins.visualizations.add({
   
       // Initialize the product key if it doesn't exist
       if (!totalsByProduct[produto]) {
-        totalsByProduct[produto] = { totalVendas: 0, valorTotal: 0 };
-        rowsByProduct[produto] = [];
+        totalsByProduct[produto] = { totalVendas: 0, valorTotal: 0, canais: {} };
       }
   
       // Accumulate the totals for the product
       totalsByProduct[produto].totalVendas += totalVendas;
       totalsByProduct[produto].valorTotal += valorTotal;
-
-      totalsByProduct[produto] = {
-        canal: {
-          totalVendas: totalVendas, valorTotal: valorTotal
-      }};
+  
+      // Store data for each canal
+      if (!totalsByProduct[produto].canais[canal]) {
+        totalsByProduct[produto].canais[canal] = { totalVendas: 0, valorTotal: 0 };
+      }
+  
+      totalsByProduct[produto].canais[canal].totalVendas += totalVendas;
+      totalsByProduct[produto].canais[canal].valorTotal += valorTotal;
     });
   
     // Second pass: generate table rows with totals first, then product details
     Object.keys(totalsByProduct).forEach(function(produto) {
       // Add the total row first (with product name and centered)
-
-      var totalVendas = totalsByProduct[produto].totalVendas;
-      var valorTotal = totalsByProduct[produto].valorTotal;
-
       tableHTML += `
         <tr>
           <td style="text-align:center;"><strong>${produto}</strong></td>
           <td><strong>Total</strong></td>
-          <td><strong>${totalVendas}</strong></td>
-          <td><strong>${valorTotal}</strong></td>
+          <td><strong>${totalsByProduct[produto].totalVendas}</strong></td>
+          <td><strong>${totalsByProduct[produto].valorTotal}</strong></td>
         </tr>
       `;
-
-      var canais = totalsByProduct[produto];
-
-      Object.keys(canais).forEach(function(canal) {
-        var totalVendas = canais[canal].totalVendas;
-        var valorTotal = canais[canal].valorTotal;
+  
+      // Iterate over the product's channels
+      Object.keys(totalsByProduct[produto].canais).forEach(function(canal) {
+        var totalVendas = totalsByProduct[produto].canais[canal].totalVendas;
+        var valorTotal = totalsByProduct[produto].canais[canal].valorTotal;
         
         tableHTML += `
-        <tr>
-          <td></td> <!-- Empty product cell -->
-          <td><strong>${canal}</strong></td>
-          <td><strong>${totalVendas}</strong></td>
-          <td><strong>${valorTotal}</strong></td>
-        </tr>
-      `;
-      });
-  
-      // Add the detailed rows for the product
-      rowsByProduct[produto].forEach(function(rowHTML) {
-        tableHTML += rowHTML;
+          <tr>
+            <td></td> <!-- Empty product cell -->
+            <td>${canal}</td>
+            <td>${totalVendas}</td>
+            <td>${valorTotal}</td>
+          </tr>
+        `;
       });
     });
   
@@ -146,6 +131,4 @@ looker.plugins.visualizations.add({
   
     done();
   }
-  
-  
 });
