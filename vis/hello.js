@@ -11,7 +11,7 @@ looker.plugins.visualizations.add({
       default: "large"
     }
   },
-  
+
   create: function(element, config) {
     element.innerHTML = `
       <style>
@@ -39,6 +39,7 @@ looker.plugins.visualizations.add({
 
         section .edicao {
             width: 12%;
+            padding: 0px 15px;
         }
 
         section .valor {
@@ -55,21 +56,21 @@ looker.plugins.visualizations.add({
         }
       </style>
     `;
-    
+
     var container = element.appendChild(document.createElement("div"));
     this._tableElement = container.appendChild(document.createElement("div"));
   },
-  
+
   updateAsync: function(data, element, config, queryResponse, details, done) {
     this.clearErrors();
-  
+
     if (queryResponse.fields.dimensions.length == 0 && queryResponse.fields.measures.length == 0) {
       this.addError({title: "No Data", message: "This chart requires dimensions or measures."});
       return;
     }
-  
+
     let totalsByProduct = {};
-  
+
     // First pass: accumulate totals and store rows by product and canal
     data.forEach(function(row) {
       let produto = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[0].name]);
@@ -79,35 +80,35 @@ looker.plugins.visualizations.add({
       let valor = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[4].name]);
       let totalVendas = parseFloat(row[queryResponse.fields.measures[0].name].value);
       let valorTotal = parseFloat(row[queryResponse.fields.measures[1].name].value);
-  
+
       // Initialize the product key if it doesn't exist
       if (!totalsByProduct[produto]) {
         totalsByProduct[produto] = { totalVendas: 0, valorTotal: 0, canais: {}, edicao: edicao, valor: valor, sorteio:sorteio };
       }
-  
+
       // Accumulate the totals for the product
       totalsByProduct[produto].totalVendas += totalVendas;
       totalsByProduct[produto].valorTotal += valorTotal;
-  
+
       // Store data for each canal
       if (!totalsByProduct[produto].canais[canal]) {
         totalsByProduct[produto].canais[canal] = { totalVendas: 0, valorTotal: 0 };
       }
-  
+
       totalsByProduct[produto].canais[canal].totalVendas += totalVendas;
       totalsByProduct[produto].canais[canal].valorTotal += valorTotal;
     });
-  
+
     // Build the HTML for each product
     let htmlContent = '';
-  
+
     Object.keys(totalsByProduct).forEach(function(produto) {
       var totalVendas = totalsByProduct[produto].totalVendas;
       var valorTotal = totalsByProduct[produto].valorTotal;
       let edicao = totalsByProduct[produto].edicao;
       let sorteio = totalsByProduct[produto].sorteio;
       let valor = totalsByProduct[produto].valor;
-  
+
       // For each product, create the HTML block
       htmlContent += `
         <div class="resumo">
@@ -115,7 +116,7 @@ looker.plugins.visualizations.add({
             <span>${produto}</span>
             <span>${sorteio}</span>
           </header>
-  
+
           <section>
             <div class="edicao">
               ${edicao}
@@ -127,7 +128,7 @@ looker.plugins.visualizations.add({
               <!-- Div for Product Total -->
               <div>
                 <div>Total - ${totalVendas}</div>
-  
+
                 <!-- Divs for Each Canal -->
                 ${Object.keys(totalsByProduct[produto].canais).map(canal => {
                   var canalTotalVendas = totalsByProduct[produto].canais[canal].totalVendas;
@@ -152,12 +153,12 @@ looker.plugins.visualizations.add({
         </div>
       `;
     });
-  
+
     // Insert the generated HTML into the container
     this._tableElement.innerHTML = htmlContent;
-  
+
     done();
   }
-  
-  
+
+
 });
