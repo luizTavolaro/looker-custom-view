@@ -99,21 +99,24 @@ looker.plugins.visualizations.add({
     Object.keys(totalsByProduct).forEach(function(produto) {
       var totalVendas = totalsByProduct[produto].totalVendas;
       var valorTotal = totalsByProduct[produto].valorTotal;
+      let edicao = totalsByProduct[produto].edicao;
+      let sorteio = totalsByProduct[produto].sorteio;
+      let valor = totalsByProduct[produto].valor;
   
       // For each product, create the HTML block
       htmlContent += `
         <div class="resumo">
           <header>
             <span>${produto}</span>
-            <span>"Data Sorteio"</span>
+            <span>${sorteio}</span>
           </header>
   
           <section>
             <div class="edicao">
-              "Edição"
+              ${edicao}
             </div>
             <div class="valor">
-              "Valor"
+              ${valor}
             </div>
             <div class="totais">
               <!-- Div for Product Total -->
