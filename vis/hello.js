@@ -94,29 +94,44 @@ looker.plugins.visualizations.add({
       // Accumulate the totals for the product
       totalsByProduct[produto].totalVendas += totalVendas;
       totalsByProduct[produto].valorTotal += valorTotal;
-  
-      // Store the row data for later use (empty product cell for detail rows)
-      rowsByProduct[produto].push(`
-        <tr>
-          <td></td> <!-- Empty product cell -->
-          <td>${canal}</td>
-          <td>${totalVendas}</td>
-          <td>${valorTotal}</td>
-        </tr>
-      `);
+
+      totalsByProduct[produto] = {
+        canal: {
+          totalVendas: totalVendas, valorTotal: valorTotal
+      }};
     });
   
     // Second pass: generate table rows with totals first, then product details
     Object.keys(totalsByProduct).forEach(function(produto) {
       // Add the total row first (with product name and centered)
+
+      var totalVendas = totalsByProduct[produto].totalVendas;
+      var valorTotal = totalsByProduct[produto].valorTotal;
+
       tableHTML += `
         <tr>
           <td style="text-align:center;"><strong>${produto}</strong></td>
           <td><strong>Total</strong></td>
-          <td><strong>${totalsByProduct[produto].totalVendas}</strong></td>
-          <td><strong>${totalsByProduct[produto].valorTotal}</strong></td>
+          <td><strong>${totalVendas}</strong></td>
+          <td><strong>${valorTotal}</strong></td>
         </tr>
       `;
+
+      var canais = totalsByProduct[produto];
+
+      Object.keys(canais).forEach(function(canal) {
+        var totalVendas = canais[canal].totalVendas;
+        var valorTotal = canais[canal].valorTotal;
+        
+        tableHTML += `
+        <tr>
+          <td></td> <!-- Empty product cell -->
+          <td><strong>${canal}</strong></td>
+          <td><strong>${totalVendas}</strong></td>
+          <td><strong>${valorTotal}</strong></td>
+        </tr>
+      `;
+      });
   
       // Add the detailed rows for the product
       rowsByProduct[produto].forEach(function(rowHTML) {
