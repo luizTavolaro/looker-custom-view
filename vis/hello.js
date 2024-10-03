@@ -54,65 +54,73 @@ looker.plugins.visualizations.add({
   },
 
   updateAsync: function(data, element, config, queryResponse, details, done) {
+updateAsync: function(data, element, config, queryResponse, details, done) {
+  this.clearErrors();
 
-    // Clear any errors from previous updates
-    this.clearErrors();
-
-    // Check if there are no dimensions or measures
-    if (queryResponse.fields.dimensions.length == 0 && queryResponse.fields.measures.length == 0) {
-      this.addError({title: "No Data", message: "This chart requires dimensions or measures."});
-      return;
-    }
-
-    // Build a table header
-    var tableHTML = `
-      <table>
-        <thead>
-          <tr>
-            <th>Produto</th>
-            <th>Canal de Venda</th>
-            <th>Total de Vendas</th>
-            <th>Valor Total</th>
-          </tr>
-        </thead>
-        <tbody>
-    `;
-
-    // Iterate over the data and build the rows for the table
-    data.forEach(function(row) {
-      var produto = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[0].name]); // Produto
-      var canal = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[1].name]);   // Canal de Venda
-      var totalVendas = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.measures[0].name]); // Total de Vendas
-      var valorTotal = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.measures[1].name]); // Valor Total
-
-      // Build the table row with the data
-      tableHTML += `
-        <tr>
-          <td>${produto}</td>
-          <td>${canal}</td>
-          <td>${totalVendas}</td>
-          <td>${valorTotal}</td>
-        </tr>
-      `;
-    });
-
-    // Close the table tag
-    tableHTML += `
-        </tbody>
-      </table>
-    `;
-
-    // Insert the table into the container
-    this._tableElement.innerHTML = tableHTML;
-
-    // Set the size to the user-selected size
-    if (config.font_size == "small") {
-      this._tableElement.className = "hello-world-text-small";
-    } else {
-      this._tableElement.className = "hello-world-text-large";
-    }
-
-    // Let Looker know rendering is complete
-    done();
+  if (queryResponse.fields.dimensions.length == 0 && queryResponse.fields.measures.length == 0) {
+    this.addError({title: "No Data", message: "This chart requires dimensions or measures."});
+    return;
   }
+
+  let totalsByProduct = {};
+
+  // Build the table header
+  var tableHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>Produto</th>
+          <th>Canal de Venda</th>
+          <th>Total de Vendas</th>
+          <th>Valor Total</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+
+  // Process data rows
+  data.forEach(function(row) {
+    let produto = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[0].name]);
+    let canal = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[1].name]);
+    let totalVendas = parseFloat(row[queryResponse.fields.measures[0].name].value);
+    let valorTotal = parseFloat(row[queryResponse.fields.measures[1].name].value);
+
+    // Add row to table
+    tableHTML += `
+      <tr>
+        <td>${produto}</td>
+        <td>${canal}</td>
+        <td>${totalVendas}</td>
+        <td>${valorTotal}</td>
+      </tr>
+    `;
+
+    // Accumulate totals by product
+    if (!totalsByProduct[produto]) {
+      totalsByProduct[produto] = { totalVendas: 0, valorTotal: 0 };
+    }
+    totalsByProduct[produto].totalVendas += totalVendas;
+    totalsByProduct[produto].valorTotal += valorTotal;
+  });
+
+  // Add totals for each product
+  Object.keys(totalsByProduct).forEach(function(produto) {
+    tableHTML += `
+      <tr>
+        <td>${produto}</td>
+        <td><strong>Total</strong></td>
+        <td><strong>${totalsByProduct[produto].totalVendas}</strong></td>
+        <td><strong>${totalsByProduct[produto].valorTotal}</strong></td>
+      </tr>
+    `;
+  });
+
+  tableHTML += `</tbody></table>`;
+
+  // Insert the table
+  this._tableElement.innerHTML = tableHTML;
+
+  done();
+}
+
 });
