@@ -95,10 +95,10 @@ looker.plugins.visualizations.add({
       totalsByProduct[produto].totalVendas += totalVendas;
       totalsByProduct[produto].valorTotal += valorTotal;
   
-      // Store the row data for later use
+      // Store the row data for later use (empty product cell for detail rows)
       rowsByProduct[produto].push(`
         <tr>
-          <td>${produto}</td>
+          <td></td> <!-- Empty product cell -->
           <td>${canal}</td>
           <td>${totalVendas}</td>
           <td>${valorTotal}</td>
@@ -108,10 +108,10 @@ looker.plugins.visualizations.add({
   
     // Second pass: generate table rows with totals first, then product details
     Object.keys(totalsByProduct).forEach(function(produto) {
-      // Add the total row first
+      // Add the total row first (with product name and centered)
       tableHTML += `
         <tr>
-          <td>${produto}</td>
+          <td style="text-align:center;"><strong>${produto}</strong></td>
           <td><strong>Total</strong></td>
           <td><strong>${totalsByProduct[produto].totalVendas}</strong></td>
           <td><strong>${totalsByProduct[produto].valorTotal}</strong></td>
@@ -131,5 +131,6 @@ looker.plugins.visualizations.add({
   
     done();
   }
+  
   
 });
