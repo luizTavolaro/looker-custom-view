@@ -15,19 +15,25 @@ looker.plugins.visualizations.add({
   create: function(element, config) {
     element.innerHTML = `
       <style>
+        .legenda {
+            font-size: 14px;
+            font-style: italic;
+        }
+
         .resumo {
-          font-size: 26px;
-          margin: 20px;
-          font-family: Helvetica, Arial, sans-serif;
+            font-size: 26px;
+            margin: 20px;
+            font-family: Helvetica, Arial, sans-serif;
         }
 
         .resumo header {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             padding: 5px 15px;
         }
 
-        section{
+        section {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -42,6 +48,11 @@ looker.plugins.visualizations.add({
             padding: 0px 15px;
         }
 
+        section * p {
+            padding: 0px;
+            margin: 0px;
+        }
+
         section .valor {
             width: 13%;
         }
@@ -49,11 +60,24 @@ looker.plugins.visualizations.add({
         section .totais {
             display: flex;
             width: 75%;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
 
         section .totais div {
             width: 100%;
         }
+
+        section .totais div div {
+            padding: 10px 0px;
+        }
+
+        .col {
+            margin: 15px 0px;
+            border-left: solid 2px black;
+        }
+
       </style>
     `;
 
@@ -114,37 +138,52 @@ looker.plugins.visualizations.add({
         <div class="resumo">
           <header>
             <span>${produto}</span>
-            <span>${sorteio}</span>
+            <span>Data do Sorteio: ${sorteio}</span>
           </header>
 
           <section>
             <div class="edicao">
-              ${edicao}
+              <p class="legenda">Edição</p>
+              <p>${edicao}</p>
             </div>
             <div class="valor">
-              ${valor}
+              <p class="legenda">Valor</p>
+              <p>${valor}</p>
             </div>
             <div class="totais">
               <!-- Div for Product Total -->
               <div>
-                <div>Total - ${totalVendas}</div>
+                <div>
+                  <p class="legenda">Total</p>
+                  <p>${totalVendas}</p>
+                </div>
 
                 <!-- Divs for Each Canal -->
                 ${Object.keys(totalsByProduct[produto].canais).map(canal => {
                   var canalTotalVendas = totalsByProduct[produto].canais[canal].totalVendas;
                   return `
-                  <div>${canal} - ${canalTotalVendas}</div>
+                  <div>
+                    <p class="legenda">${canal}</p>
+                    <p>${canalTotalVendas}</p>
+                  </div>
                   `;
                 }).join('')}
               </div>
 
               <div>
-                <div>Total: ${valorTotal}</div>
+                <div>
+                  <p class="legenda">Total</p>
+                  <p>${valorTotal}</p>
+                </div>
+
                 <!-- Divs for Each Canal -->
                 ${Object.keys(totalsByProduct[produto].canais).map(canal => {
                   var canalValorTotal = totalsByProduct[produto].canais[canal].valorTotal;
                   return `
-                  <div>${canal} - ${canalValorTotal}</div>
+                  <div>
+                    <p class="legenda">${canal}</p>
+                    <p>${canalValorTotal}</p>
+                  </div>
                   `;
                 }).join('')}
               </div>
