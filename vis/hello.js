@@ -152,7 +152,7 @@ looker.plugins.visualizations.add({
             </div>
             <div class="totais">
               <!-- Div for Product Total -->
-              <div>
+              <div class="col">
                 <div>
                   <p class="legenda">Total</p>
                   <p>${totalVendas}</p>
@@ -170,7 +170,7 @@ looker.plugins.visualizations.add({
                 }).join('')}
               </div>
 
-              <div>
+              <div class="col">
                 <div>
                   <p class="legenda">Total</p>
                   <p>${valorTotal}</p>
