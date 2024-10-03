@@ -49,34 +49,27 @@ looker.plugins.visualizations.add({
     // Clear any errors from previous updates
     this.clearErrors();
 
-    // Throw some errors and exit if the shape of the data isn't what this chart needs
-    if (queryResponse.fields.dimensions.length == 0) {
-      this.addError({title: "No Dimensions", message: "This chart requires dimensions."});
+    // Check if there are no dimensions and no measures
+    if (queryResponse.fields.dimensions.length == 0 && queryResponse.fields.measures.length == 0) {
+      this.addError({title: "No Dimensions or Measures", message: "This chart requires dimensions or measures."});
       return;
     }
 
-    // Grab the first cell of the data
+    // Accessing the first row of data
     var firstRow = data[0];
-    var firstCell = firstRow[queryResponse.fields.dimensions[0].name];
-    var secCell = firstRow[queryResponse.fields.dimensions[1].name];
-    var trdCell = firstRow[queryResponse.fields.dimensions[2].name];
-    var fCell = firstRow[queryResponse.fields.measures[3].name];
-    var fiCell = firstRow[queryResponse.fields.measures[4].name];
 
-    firstCell = LookerCharts.Utils.htmlForCell(firstCell);
-    secCell = LookerCharts.Utils.htmlForCell(secCell);
-    trdCell = LookerCharts.Utils.htmlForCell(trdCell);
-    fCell = LookerCharts.Utils.htmlForCell(fCell);
-    fiCell = LookerCharts.Utils.htmlForCell(fiCell);
+    // Accessing dimensions (similar to the previous implementation)
+    var firstDimension = firstRow[queryResponse.fields.dimensions[0].name];
+    firstDimension = LookerCharts.Utils.htmlForCell(firstDimension);
 
-    // Insert the data into the page
-    // this._textElement.innerHTML = LookerCharts.Utils.htmlForCell(firstCell);
+    // Accessing measures (NEW)
+    var firstMeasure = firstRow[queryResponse.fields.measures[0].name];
+    firstMeasure = LookerCharts.Utils.htmlForCell(firstMeasure);
+
+    // Insert the data into the page (using both dimensions and measures)
     this._textElement.innerHTML = `
-      <p>${firstCell}</p>
-      <p>${secCell}</p>
-      <p>${trdCell}</p>
-      <p>${fCell}</p>
-      <p>${fiCell}</p>
+      <p>Dimension: ${firstDimension}</p>
+      <p>Measure: ${firstMeasure}</p>
     `;
 
     // Set the size to the user-selected size
