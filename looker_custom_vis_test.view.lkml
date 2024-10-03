@@ -15,7 +15,7 @@ SELECT
 
 FROM `dm_titulos.vendas_caps_crescimento`
 
-WHERE produto_codigo in ('hipercaplitoral', 'hipercapbrasil', 'hipercapmogi');;
+WHERE produto_codigo in ('hipercaplitoral', 'hipercapbrasil', 'hipercapmogi', 'natalcap');;
 
 #--GROUP BY 1,2,3,4,5;;
   }
