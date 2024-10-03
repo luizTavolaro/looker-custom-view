@@ -69,12 +69,15 @@ looker.plugins.visualizations.add({
     data.forEach(function(row) {
       let produto = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[0].name]);
       let canal = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[1].name]);
+      let edicao = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[2].name]);
+      let sorteio = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[3].name]);
+      let valor = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[4].name]);
       let totalVendas = parseFloat(row[queryResponse.fields.measures[0].name].value);
       let valorTotal = parseFloat(row[queryResponse.fields.measures[1].name].value);
   
       // Initialize the product key if it doesn't exist
       if (!totalsByProduct[produto]) {
-        totalsByProduct[produto] = { totalVendas: 0, valorTotal: 0, canais: {} };
+        totalsByProduct[produto] = { totalVendas: 0, valorTotal: 0, canais: {}, edicao: edicao, valor: valor, sorteio:sorteio };
       }
   
       // Accumulate the totals for the product
@@ -115,13 +118,13 @@ looker.plugins.visualizations.add({
             <div class="totais">
               <!-- Div for Product Total -->
               <div>
-                <div>Total: ${totalVendas}</div>
+                <div>Total - ${totalVendas}</div>
   
                 <!-- Divs for Each Canal -->
                 ${Object.keys(totalsByProduct[produto].canais).map(canal => {
                   var canalTotalVendas = totalsByProduct[produto].canais[canal].totalVendas;
                   return `
-                  <div>Canal ${canal} - Vendas: ${canalTotalVendas}</div>
+                  <div>${canal} - ${canalTotalVendas}</div>
                   `;
                 }).join('')}
               </div>
@@ -132,7 +135,7 @@ looker.plugins.visualizations.add({
                 ${Object.keys(totalsByProduct[produto].canais).map(canal => {
                   var canalValorTotal = totalsByProduct[produto].canais[canal].valorTotal;
                   return `
-                  <div>Canal ${canal} - Vendas: ${canalValorTotal}</div>
+                  <div>${canal} - ${canalValorTotal}</div>
                   `;
                 }).join('')}
               </div>
