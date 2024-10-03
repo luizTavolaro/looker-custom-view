@@ -187,6 +187,47 @@ looker.plugins.visualizations.add({
                   `;
                 }).join('')}
               </div>
+
+              <div class="col">
+                <div>
+                  <p class="legenda">Total</p>
+                  <p>${((totalVendas / valorTotal) - 1) * 100}%</p>
+                </div>
+
+                <!-- Divs for Each Canal -->
+                ${Object.keys(totalsByProduct[produto].canais).map(canal => {
+                  var canalTotalVendas = totalsByProduct[produto].canais[canal].totalVendas;
+                  var canalValorTotal = totalsByProduct[produto].canais[canal].valorTotal;
+                  var var_ = ((canalTotalVendas / canalValorTotal) - 1) * 100
+                  return `
+                  <div>
+                    <p class="legenda">${canal}</p>
+                    <p>${var_}%</p>
+                  </div>
+                  `;
+                }).join('')}
+              </div>
+
+              <div class="col">
+                <div>
+                  <p class="legenda">Total</p>
+                  <p>${((totalVendas / valorTotal) - 1) * 100}%</p>
+                </div>
+
+                <!-- Divs for Each Canal -->
+                ${Object.keys(totalsByProduct[produto].canais).map(canal => {
+                  var canalTotalVendas = totalsByProduct[produto].canais[canal].totalVendas;
+                  var canalValorTotal = totalsByProduct[produto].canais[canal].valorTotal;
+                  var var_ = ((canalTotalVendas / canalValorTotal) - 1) * 100
+                  return `
+                  <div>
+                    <p class="legenda">${canal}</p>
+                    <p>${var_}%</p>
+                  </div>
+                  `;
+                }).join('')}
+              </div>
+
             </div>
           </section>
         </div>
