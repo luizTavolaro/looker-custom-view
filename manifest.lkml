@@ -1,5 +1,5 @@
 visualization: {
-  id: "LOOKERTESTFROMMANIFESTFILE"
-  label: "LOOKER TEST FROM MANIFEST FILE"
-  file: "vis/hello.js"
+  id: "crescimentos"
+  label: "Crescimentos"
+  file: "vis/crescimentos.js"
 }
