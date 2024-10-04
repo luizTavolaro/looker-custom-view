@@ -15,6 +15,11 @@ looker.plugins.visualizations.add({
   create: function(element, config) {
     element.innerHTML = `
       <style>
+        .dash{
+            display: flex;
+            justify-content: center;
+        }
+
         .legenda {
             font-size: 14px;
             font-style: italic;
@@ -34,6 +39,10 @@ looker.plugins.visualizations.add({
             font-size: 26px;
             margin: 20px;
             font-family: Helvetica, Arial, sans-serif;
+            width: 780px;
+            min-width: 780px;
+            border-radius: 10px;
+            box-shadow: rgb(220, 220, 220) 0px 7px 29px 0px;
         }
 
         .resumo header {
@@ -48,9 +57,8 @@ looker.plugins.visualizations.add({
             justify-content: space-around;
             align-items: center;
             background-color: rgba(210, 210, 210, 0.5);
-            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-            width: 100%;
-            border-radius: 10px;
+            border-radius: 0px 0px 10px 10px;
+            width: 100%;   
         }
 
         .edicao {
@@ -87,7 +95,7 @@ looker.plugins.visualizations.add({
             margin: 15px 0px;
             border-left: solid 2px black;
         }
-       
+
         .green {
             color: green;
         }
@@ -192,6 +200,7 @@ looker.plugins.visualizations.add({
     
       // Construção do HTML
       htmlContent += `
+      <div class="dash">
         <div class="resumo">
           <header>
             <div class="logo">
@@ -202,7 +211,7 @@ looker.plugins.visualizations.add({
               <p class="legenda">Data do Sorteio</p>
               <p>${sorteio}</p>
             </div>
-        </header>
+          </header>
     
           <section>
             <div class="promocao">
@@ -306,6 +315,7 @@ looker.plugins.visualizations.add({
             </div>
           </section>
         </div>
+      </div>
       `;
     });
     
