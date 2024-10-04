@@ -33,6 +33,16 @@ looker.plugins.visualizations.add({
             padding: 5px 15px;
         }
 
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 250px;
+        }
+
         section {
             display: flex;
             justify-content: center;
@@ -184,12 +194,15 @@ looker.plugins.visualizations.add({
       htmlContent += `
         <div class="resumo">
           <header>
-            <span>${produto}</span>
-            <div class="sorteio">
+            <div class="logo">
+                <img src="https://hipercapbrasil.com.br/wp-content/uploads/2021/02/hc_brasil_branco.png"/>
+                <p>${produto}</p>
+            </div>
+            <div>
               <p class="legenda">Data do Sorteio</p>
               <p>${sorteio}</p>
             </div>
-          </header>
+        </header>
     
           <section>
             <div class="edicao">
