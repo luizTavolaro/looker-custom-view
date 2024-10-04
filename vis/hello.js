@@ -140,10 +140,11 @@ looker.plugins.visualizations.add({
     // First pass: accumulate totals and store rows by product and canal
     data.forEach(function(row) {
       let produto = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[0].name]);
-      let canal = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[1].name]);
-      let edicao = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[2].name]);
-      let sorteio = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[3].name]);
-      let valor = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[4].name]);
+      let codigoProduto = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[1].name]);
+      let canal = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[2].name]);
+      let edicao = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[3].name]);
+      let sorteio = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[4].name]);
+      let valor = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[5].name]);
 
       let totalTitulosPromoAtual = parseFloat(row[queryResponse.fields.measures[0].name].value);
       let totalTitulosDiaAtualPromoAtual = parseFloat(row[queryResponse.fields.measures[1].name].value);
@@ -220,7 +221,7 @@ looker.plugins.visualizations.add({
         <div class="resumo">
           <header>
             <div class="logo">
-                <img src="https://hipercapbrasil.com.br/wp-content/uploads/2021/02/hc_brasil_branco.png"/>
+                <img src="https://storage.googleapis.com/front-objects-mobile/icons/logo_${codigoProduto}.png"/>
                 <!-- <p>${produto}</p> -->
             </div>
             <div>
