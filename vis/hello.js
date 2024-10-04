@@ -221,7 +221,7 @@ looker.plugins.visualizations.add({
           <header>
             <div class="logo">
                 <img src="https://storage.googleapis.com/front-objects-mobile/icons/logo_mogi.png"/>
-                <!-- <p>${produto}</p> -->
+                <p>${produto}</p>
             </div>
             <div>
               <p class="legenda">Data do Sorteio</p>
@@ -253,7 +253,7 @@ looker.plugins.visualizations.add({
                   var canalTotalTitulosPromoAtual = totalsByProduct[produto].canais[canal].totalTitulosPromoAtual;
                   return `
                   <div>
-                    <p class="legenda">${canal}</p>
+                    <p class="legenda">Total - ${canal}</p>
                     <p>${canalTotalTitulosPromoAtual}</p>
                   </div>
                   `;
@@ -271,7 +271,7 @@ looker.plugins.visualizations.add({
                   var canalTotalTitulosDiaAtualPromoAtual = totalsByProduct[produto].canais[canal].totalTitulosDiaAtualPromoAtual;
                   return `
                   <div>
-                    <p class="legenda">${canal}</p>
+                    <p class="legenda">Dia - ${canal}</p>
                     <p>${canalTotalTitulosDiaAtualPromoAtual}</p>
                   </div>
                   `;
@@ -280,7 +280,7 @@ looker.plugins.visualizations.add({
 
               <div class="col">
                 <div>
-                  <p class="legenda">Total</p>
+                  <p class="legenda">ΔTotal</p>
                   <p class="${totalTitulosPromoAtualVarClass}">${totalTitulosPromoAtualVar}%</p>
                 </div>
 
@@ -296,7 +296,7 @@ looker.plugins.visualizations.add({
 
                   return `
                   <div>
-                    <p class="legenda">${canal}</p>
+                    <p class="legenda">ΔTotal - ${canal}</p>
                     <p class="${canalTotalTitulosPromoAtualVarClass}">${canalTotalTitulosPromoAtualVar}%</p>
                   </div>
                   `;
@@ -305,7 +305,7 @@ looker.plugins.visualizations.add({
 
               <div class="col">
                 <div>
-                  <p class="legenda">Dia</p>
+                  <p class="legenda">ΔDia</p>
                   <p class="${totalTitulosDiaAtualPromoAtualVarClass}">${totalTitulosDiaAtualPromoAtualVar}%</p>
                 </div>
 
@@ -321,7 +321,7 @@ looker.plugins.visualizations.add({
 
                   return `
                   <div>
-                    <p class="legenda">${canal}</p>
+                    <p class="legenda">ΔDia - ${canal}</p>
                     <p class="${canalTotalTitulosPromoAtualVarClass}">${canalTotalTitulosPromoAtualVar}%</p>
                   </div>
                   `;
