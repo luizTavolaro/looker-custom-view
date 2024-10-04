@@ -105,16 +105,16 @@ looker.plugins.visualizations.add({
 
         @media (max-width: 768px) {
             .legenda {
-                font-size: 10px;
+                font-size: 6px;
                 font-style: italic;
             }
-            
+
             .logo img {
                 height: 50px;
             }
-            
+
             .resumo {
-              font-size: 18px;
+              font-size: 12px;
               width: 100%;
             }
         }
