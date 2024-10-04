@@ -77,6 +77,14 @@ looker.plugins.visualizations.add({
             margin: 15px 0px;
             border-left: solid 2px black;
         }
+        
+        .green {
+            color: green;
+        }
+
+        .red {
+            color: red;
+        }
 
       </style>
     `;
@@ -140,6 +148,10 @@ looker.plugins.visualizations.add({
       var valorTotalVar = (valorTotal == 0 || totalVendas == 0) ? 0 : ((totalVendas / valorTotal - 1) * 100);
       valorTotalVar = valorTotalVar.toFixed(2).replace('.', ',');
     
+      // Determina a classe CSS para cor
+      var totalVendasVarClass = totalVendasVar > 0 ? 'green' : 'red';
+      var valorTotalVarClass = valorTotalVar > 0 ? 'green' : 'red';
+    
       // Construção do HTML
       htmlContent += `
         <div class="resumo">
@@ -198,7 +210,7 @@ looker.plugins.visualizations.add({
               <div class="col">
                 <div>
                   <p class="legenda">Total</p>
-                  <p>${totalVendasVar}%</p>
+                  <p class="${totalVendasVarClass}">${totalVendasVar}%</p>
                 </div>
     
                 <!-- Divs para Cada Canal -->
@@ -210,10 +222,12 @@ looker.plugins.visualizations.add({
                   var var_ = (canalValorTotal == 0 || canalTotalVendas == 0) ? 0 : (((canalTotalVendas / canalValorTotal) - 1) * 100);
                   var_ = var_.toFixed(2).replace('.', ',');
     
+                  var varClass = var_ > 0 ? 'green' : 'red';
+    
                   return `
                   <div>
                     <p class="legenda">${canal}</p>
-                    <p>${var_}%</p>
+                    <p class="${varClass}">${var_}%</p>
                   </div>
                   `;
                 }).join('')}
@@ -222,7 +236,7 @@ looker.plugins.visualizations.add({
               <div class="col">
                 <div>
                   <p class="legenda">Total</p>
-                  <p>${valorTotalVar}%</p>
+                  <p class="${valorTotalVarClass}">${valorTotalVar}%</p>
                 </div>
     
                 <!-- Divs para Cada Canal -->
@@ -234,10 +248,12 @@ looker.plugins.visualizations.add({
                   var var_ = (canalValorTotal == 0 || canalTotalVendas == 0) ? 0 : (((canalTotalVendas / canalValorTotal) - 1) * 100);
                   var_ = var_.toFixed(2).replace('.', ',');
     
+                  var varClass = var_ > 0 ? 'green' : 'red';
+    
                   return `
                   <div>
                     <p class="legenda">${canal}</p>
-                    <p>${var_}%</p>
+                    <p class="${varClass}">${var_}%</p>
                   </div>
                   `;
                 }).join('')}
@@ -248,6 +264,7 @@ looker.plugins.visualizations.add({
         </div>
       `;
     });
+    
 
     // Insert the generated HTML into the container
     this._tableElement.innerHTML = htmlContent;
