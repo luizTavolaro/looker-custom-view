@@ -116,7 +116,7 @@ looker.plugins.visualizations.add({
 
             .resumo {
               font-size: 18px;
-              width: 300px;
+              width: 100%;
             }
         }
 
