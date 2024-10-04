@@ -253,7 +253,7 @@ looker.plugins.visualizations.add({
                   var canalTotalTitulosPromoAtual = totalsByProduct[produto].canais[canal].totalTitulosPromoAtual;
                   return `
                   <div>
-                    <p class="legenda">Total - ${canal}</p>
+                    <p class="legenda">${canal}</p>
                     <p>${canalTotalTitulosPromoAtual}</p>
                   </div>
                   `;
@@ -271,7 +271,7 @@ looker.plugins.visualizations.add({
                   var canalTotalTitulosDiaAtualPromoAtual = totalsByProduct[produto].canais[canal].totalTitulosDiaAtualPromoAtual;
                   return `
                   <div>
-                    <p class="legenda">Dia - ${canal}</p>
+                    <p class="legenda">${canal}</p>
                     <p>${canalTotalTitulosDiaAtualPromoAtual}</p>
                   </div>
                   `;
