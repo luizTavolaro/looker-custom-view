@@ -224,6 +224,7 @@ looker.plugins.visualizations.add({
           <header>
             <div class="logo">
                 <img src="https://storage.googleapis.com/idea-data-homol-looker-artifacty/logo/${codigoProduto.trim()}.png"/>
+                <p>https://storage.googleapis.com/idea-data-homol-looker-artifacty/logo/${codigoProduto}.png</p>
                 <p>${produto}</p>
             </div>
             <div>
