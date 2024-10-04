@@ -20,6 +20,16 @@ looker.plugins.visualizations.add({
             font-style: italic;
         }
 
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 250px;
+        }
+
         .resumo {
             font-size: 26px;
             margin: 20px;
@@ -33,19 +43,9 @@ looker.plugins.visualizations.add({
             padding: 5px 15px;
         }
 
-        .logo {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .logo img {
-            width: 250px;
-        }
-
         section {
             display: flex;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
             background-color: rgba(210, 210, 210, 0.5);
             box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -53,9 +53,8 @@ looker.plugins.visualizations.add({
             border-radius: 10px;
         }
 
-        section .edicao {
+        .edicao {
             width: 12%;
-            padding: 0px 15px;
         }
 
         p {
@@ -63,7 +62,7 @@ looker.plugins.visualizations.add({
             margin: 0px;
         }
 
-        section .valor {
+        .valor {
             width: 13%;
         }
 
@@ -87,7 +86,7 @@ looker.plugins.visualizations.add({
             margin: 15px 0px;
             border-left: solid 2px black;
         }
-        
+       
         .green {
             color: green;
         }
@@ -205,13 +204,15 @@ looker.plugins.visualizations.add({
         </header>
     
           <section>
-            <div class="edicao">
-              <p class="legenda">Edição</p>
-              <p>${edicao}</p>
-            </div>
-            <div class="valor">
-              <p class="legenda">Valor</p>
-              <p>${valor}</p>
+            <div class="promocao">
+                <div class="edicao">
+                    <p class="legenda">Edição</p>
+                    <p>${edicao}</p>
+                </div>
+                <div class="valor">
+                    <p class="legenda">Valor</p>
+                    <p>${valor}</p>
+                </div>
             </div>
             <div class="totais">
               <!-- Div para o Total do Produto -->
