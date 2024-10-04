@@ -139,7 +139,8 @@ looker.plugins.visualizations.add({
     // First pass: accumulate totals and store rows by product and canal
     data.forEach(function(row) {
       let produto = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[0].name]);
-      let codigoProduto = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[1].name]);
+      // let codigoProduto = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[1].name]);
+      let logo = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[1].name]);
       let canal = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[2].name]);
       let edicao = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[3].name]);
       let sorteio = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[4].name]);
@@ -220,7 +221,7 @@ looker.plugins.visualizations.add({
         <div class="resumo">
           <header>
             <div class="logo">
-                <img src="https://storage.googleapis.com/idea-data-homol-looker-artifacty/logo/trijoinville.png"/>
+                <img src="${logo}"/>
                 <p>${produto}</p>
             </div>
             <div>
