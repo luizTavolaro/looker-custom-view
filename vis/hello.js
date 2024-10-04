@@ -185,7 +185,10 @@ looker.plugins.visualizations.add({
         <div class="resumo">
           <header>
             <span>${produto}</span>
-            <span>Data do Sorteio: ${sorteio}</span>
+            <div class="sorteio">
+              <p class="legenda">Data do Sorteio</p>
+              <p>${sorteio}</p>
+            </div>
           </header>
     
           <section>
