@@ -223,7 +223,7 @@ looker.plugins.visualizations.add({
         <div class="resumo">
           <header>
             <div class="logo">
-                <img src=${logo}/>
+                <img src=${logo} />
                 <p>${produto}</p>
             </div>
             <div>
