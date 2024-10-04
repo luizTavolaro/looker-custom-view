@@ -103,6 +103,12 @@ looker.plugins.visualizations.add({
         .red {
             color: red;
         }
+          
+        @media (max-width: 768px) {
+          * {
+            font-size: 16px;
+          }
+        }
 
       </style>
     `;
