@@ -143,11 +143,11 @@ looker.plugins.visualizations.add({
     
       // Verificação de divisão por zero para total do produto
       var totalVendasVar = (valorTotal == 0 || totalVendas == 0) ? 0 : ((totalVendas / valorTotal - 1) * 100);
-      var valorTotalVarClass = valorTotalVar > 0 ? 'green' : 'red';
-      totalVendasVar = totalVendasVar.toFixed(2).replace('.', ',');
-    
-      var valorTotalVar = (valorTotal == 0 || totalVendas == 0) ? 0 : ((totalVendas / valorTotal - 1) * 100);
       var totalVendasVarClass = totalVendasVar > 0 ? 'green' : 'red';
+      totalVendasVar = totalVendasVar.toFixed(2).replace('.', ',');
+      
+      var valorTotalVar = (valorTotal == 0 || totalVendas == 0) ? 0 : ((totalVendas / valorTotal - 1) * 100);
+      var valorTotalVarClass = valorTotalVar > 0 ? 'green' : 'red';
       valorTotalVar = valorTotalVar.toFixed(2).replace('.', ',');
     
       // Determina a classe CSS para cor
