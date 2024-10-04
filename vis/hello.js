@@ -261,7 +261,7 @@ looker.plugins.visualizations.add({
     
               <div class="col">
                 <div>
-                  <p class="legenda">Total</p>
+                  <p class="legenda">Dia</p>
                   <p>${totalTitulosDiaAtualPromoAtual}</p>
                 </div>
     
@@ -304,7 +304,7 @@ looker.plugins.visualizations.add({
     
               <div class="col">
                 <div>
-                  <p class="legenda">Total</p>
+                  <p class="legenda">Dia</p>
                   <p class="${totalTitulosDiaAtualPromoAtualVarClass}">${totalTitulosDiaAtualPromoAtualVar}%</p>
                 </div>
     
