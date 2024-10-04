@@ -220,8 +220,10 @@ looker.plugins.visualizations.add({
         <div class="resumo">
           <header>
             <div class="logo">
-                <img src="https://storage.googleapis.com/idea-data-homol-looker-artifacty/logo/${codigoProduto}.png"/>
+                <!-- <img src="https://storage.googleapis.com/idea-data-homol-looker-artifacty/logo/${codigoProduto}.png"/> -->
+                <p>${codigoProduto}</p>
                 <p>${produto}</p>
+                <p>https://storage.googleapis.com/idea-data-homol-looker-artifacty/logo/${codigoProduto}.png</p>
             </div>
             <div>
               <p class="legenda">Data do Sorteio</p>
