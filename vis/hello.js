@@ -110,45 +110,69 @@ looker.plugins.visualizations.add({
       let edicao = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[2].name]);
       let sorteio = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[3].name]);
       let valor = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[4].name]);
-      let totalVendas = parseFloat(row[queryResponse.fields.measures[0].name].value);
-      let valorTotal = parseFloat(row[queryResponse.fields.measures[1].name].value);
+
+      let totalTitulosPromoAtual = parseFloat(row[queryResponse.fields.measures[0].name].value);
+      let totalTitulosDiaAtualPromoAtual = parseFloat(row[queryResponse.fields.measures[1].name].value);
+
+      let totalTitulosPromoAnterior = parseFloat(row[queryResponse.fields.measures[2].name].value);
+      let totalTitulosDiaAtualPromoAnterior = parseFloat(row[queryResponse.fields.measures[3].name].value);
 
       // Initialize the product key if it doesn't exist
       if (!totalsByProduct[produto]) {
-        totalsByProduct[produto] = { totalVendas: 0, valorTotal: 0, canais: {}, edicao: edicao, valor: valor, sorteio:sorteio };
+        totalsByProduct[produto] = { 
+          totalTitulosPromoAtual: 0, 
+          totalTitulosDiaAtualPromoAtual: 0, 
+          totalTitulosPromoAnterior: 0, 
+          totalTitulosDiaAtualPromoAnterior: 0, 
+          canais: {}, 
+          edicao: edicao, 
+          valor: valor, 
+          sorteio:sorteio };
       }
 
       // Accumulate the totals for the product
-      totalsByProduct[produto].totalVendas += totalVendas;
-      totalsByProduct[produto].valorTotal += valorTotal;
+      totalsByProduct[produto].totalTitulosPromoAtual += totalTitulosPromoAtual;
+      totalsByProduct[produto].totalTitulosDiaAtualPromoAtual += totalTitulosDiaAtualPromoAtual;
+      totalsByProduct[produto].totalTitulosPromoAnterior += totalTitulosPromoAnterior;
+      totalsByProduct[produto].totalTitulosDiaAtualPromoAnterior += totalTitulosDiaAtualPromoAnterior;
 
       // Store data for each canal
       if (!totalsByProduct[produto].canais[canal]) {
-        totalsByProduct[produto].canais[canal] = { totalVendas: 0, valorTotal: 0 };
+        totalsByProduct[produto].canais[canal] = { 
+          totalTitulosPromoAtual: 0, 
+          totalTitulosDiaAtualPromoAtual: 0,
+          totalTitulosPromoAnterior: 0, 
+          totalTitulosDiaAtualPromoAnterior: 0, 
+        };
       }
 
-      totalsByProduct[produto].canais[canal].totalVendas += totalVendas;
-      totalsByProduct[produto].canais[canal].valorTotal += valorTotal;
+      totalsByProduct[produto].canais[canal].totalTitulosPromoAtual += totalTitulosPromoAtual;
+      totalsByProduct[produto].canais[canal].totalTitulosDiaAtualPromoAtual += totalTitulosDiaAtualPromoAtual;
+      totalsByProduct[produto].canais[canal].totalTitulosPromoAnterior += totalTitulosPromoAnterior;
+      totalsByProduct[produto].canais[canal].totalTitulosDiaAtualPromoAnterior += totalTitulosDiaAtualPromoAnterior;
     });
 
     // Build the HTML for each product
     let htmlContent = '';
 
     Object.keys(totalsByProduct).forEach(function(produto) {
-      var totalVendas = totalsByProduct[produto].totalVendas;
-      var valorTotal = totalsByProduct[produto].valorTotal;
+      var totalTitulosPromoAtual = totalsByProduct[produto].totalTitulosPromoAtual;
+      var totalTitulosDiaAtualPromoAtual = totalsByProduct[produto].totalTitulosDiaAtualPromoAtual;
+      var totalTitulosPromoAnterior = totalsByProduct[produto].totalTitulosPromoAnterior;
+      var totalTitulosDiaAtualPromoAnterior = totalsByProduct[produto].totalTitulosDiaAtualPromoAnterior;
+
       let edicao = totalsByProduct[produto].edicao;
       let sorteio = totalsByProduct[produto].sorteio;
       let valor = totalsByProduct[produto].valor;
     
       // Verificação de divisão por zero para total do produto
-      var totalVendasVar = (valorTotal == 0 || totalVendas == 0) ? 0 : ((totalVendas / valorTotal - 1) * 100);
-      var totalVendasVarClass = totalVendasVar > 0 ? 'green' : 'red';
-      totalVendasVar = totalVendasVar.toFixed(2).replace('.', ',');
+      var totalTitulosPromoAtualVar = (totalTitulosPromoAtual == 0 || totalTitulosPromoAnterior == 0) ? 0 : ((totalTitulosPromoAtual / totalTitulosPromoAnterior - 1) * 100);
+      var totalTitulosPromoAtualVarClass = totalTitulosPromoAtualVar > 0 ? 'green' : 'red';
+      totalTitulosPromoAtualVar = totalTitulosPromoAtualVar.toFixed(2).replace('.', ',');
       
-      var valorTotalVar = (valorTotal == 0 || totalVendas == 0) ? 0 : ((totalVendas / valorTotal - 1) * 100);
-      var valorTotalVarClass = valorTotalVar > 0 ? 'green' : 'red';
-      valorTotalVar = valorTotalVar.toFixed(2).replace('.', ',');
+      var totalTitulosDiaAtualPromoAtualVar = (totalTitulosDiaAtualPromoAtual == 0 || totalTitulosDiaAtualPromoAnterior == 0) ? 0 : ((totalTitulosDiaAtualPromoAtual / totalTitulosDiaAtualPromoAnterior - 1) * 100);
+      var totalTitulosDiaAtualPromoAtualVarClass = totalTitulosDiaAtualPromoAtualVar > 0 ? 'green' : 'red';
+      totalTitulosDiaAtualPromoAtualVar = totalTitulosDiaAtualPromoAtualVar.toFixed(2).replace('.', ',');
     
       // Determina a classe CSS para cor
     
@@ -174,16 +198,16 @@ looker.plugins.visualizations.add({
               <div class="col">
                 <div>
                   <p class="legenda">Total</p>
-                  <p>${totalVendas}</p>
+                  <p>${totalTitulosPromoAtual}</p>
                 </div>
     
                 <!-- Divs para Cada Canal -->
                 ${Object.keys(totalsByProduct[produto].canais).map(canal => {
-                  var canalTotalVendas = totalsByProduct[produto].canais[canal].totalVendas;
+                  var canalTotalTitulosPromoAtual = totalsByProduct[produto].canais[canal].totalTitulosPromoAtual;
                   return `
                   <div>
                     <p class="legenda">${canal}</p>
-                    <p>${canalTotalVendas}</p>
+                    <p>${canalTotalTitulosPromoAtual}</p>
                   </div>
                   `;
                 }).join('')}
@@ -192,16 +216,16 @@ looker.plugins.visualizations.add({
               <div class="col">
                 <div>
                   <p class="legenda">Total</p>
-                  <p>${valorTotal}</p>
+                  <p>${totalTitulosDiaAtualPromoAtual}</p>
                 </div>
     
                 <!-- Divs para Cada Canal -->
                 ${Object.keys(totalsByProduct[produto].canais).map(canal => {
-                  var canalValorTotal = totalsByProduct[produto].canais[canal].valorTotal;
+                  var canalTotalTitulosDiaAtualPromoAtual = totalsByProduct[produto].canais[canal].totalTitulosDiaAtualPromoAtual;
                   return `
                   <div>
                     <p class="legenda">${canal}</p>
-                    <p>${canalValorTotal}</p>
+                    <p>${canalTotalTitulosDiaAtualPromoAtual}</p>
                   </div>
                   `;
                 }).join('')}
@@ -210,23 +234,23 @@ looker.plugins.visualizations.add({
               <div class="col">
                 <div>
                   <p class="legenda">Total</p>
-                  <p class="${totalVendasVarClass}">${totalVendasVar}%</p>
+                  <p class="${totalTitulosPromoAtualVarClass}">${totalTitulosPromoAtualVar}%</p>
                 </div>
     
                 <!-- Divs para Cada Canal -->
                 ${Object.keys(totalsByProduct[produto].canais).map(canal => {
-                  var canalTotalVendas = totalsByProduct[produto].canais[canal].totalVendas;
-                  var canalValorTotal = totalsByProduct[produto].canais[canal].valorTotal;
+                  var canalTotalTitulosPromoAtual = totalsByProduct[produto].canais[canal].totalTitulosPromoAtual;
+                  var canalTotalTitulosPromoAnterior = totalsByProduct[produto].canais[canal].totalTitulosPromoAnterior;
     
                   // Verificação de divisão por zero para cada canal
-                  var var_ = (canalValorTotal == 0 || canalTotalVendas == 0) ? 0 : (((canalTotalVendas / canalValorTotal) - 1) * 100);
-                  var varClass = var_ > 0 ? 'green' : 'red';
-                  var_ = var_.toFixed(2).replace('.', ',');
+                  var canalTotalTitulosPromoAtualVar = (canalTotalTitulosDiaAtualPromoAtual == 0 || canalTotalTitulosPromoAtual == 0) ? 0 : (((canalTotalTitulosPromoAtual / canalTotalTitulosDiaAtualPromoAtual) - 1) * 100);
+                  var canalTotalTitulosPromoAtualVarClass = canalTotalTitulosPromoAtualVar > 0 ? 'green' : 'red';
+                  canalTotalTitulosPromoAtualVar = canalTotalTitulosPromoAtualVar.toFixed(2).replace('.', ',');
     
                   return `
                   <div>
                     <p class="legenda">${canal}</p>
-                    <p class="${varClass}">${var_}%</p>
+                    <p class="${canalTotalTitulosPromoAtualVarClass}">${canalTotalTitulosPromoAtualVar}%</p>
                   </div>
                   `;
                 }).join('')}
@@ -235,23 +259,23 @@ looker.plugins.visualizations.add({
               <div class="col">
                 <div>
                   <p class="legenda">Total</p>
-                  <p class="${valorTotalVarClass}">${valorTotalVar}%</p>
+                  <p class="${totalTitulosDiaAtualPromoAtualVarClass}">${totalTitulosDiaAtualPromoAtualVar}%</p>
                 </div>
     
                 <!-- Divs para Cada Canal -->
                 ${Object.keys(totalsByProduct[produto].canais).map(canal => {
-                  var canalTotalVendas = totalsByProduct[produto].canais[canal].totalVendas;
-                  var canalValorTotal = totalsByProduct[produto].canais[canal].valorTotal;
+                  var canalTotalTitulosDiaAtualPromoAtual = totalsByProduct[produto].canais[canal].totalTitulosDiaAtualPromoAtual;
+                  var canalTotalTitulosDiaAtualPromoAnterior = totalsByProduct[produto].canais[canal].totalTitulosDiaAtualPromoAnterior;
     
                   // Verificação de divisão por zero para cada canal
-                  var var_ = (canalValorTotal == 0 || canalTotalVendas == 0) ? 0 : (((canalTotalVendas / canalValorTotal) - 1) * 100);
-                  var varClass = var_ > 0 ? 'green' : 'red';
-                  var_ = var_.toFixed(2).replace('.', ',');
+                  var canalTotalTitulosPromoAtualVar = (canalTotalTitulosDiaAtualPromoAtual == 0 || canalTotalTitulosDiaAtualPromoAnterior == 0) ? 0 : (((canalTotalTitulosDiaAtualPromoAtual / canalTotalTitulosDiaAtualPromoAnterior) - 1) * 100);
+                  var canalTotalTitulosPromoAtualVarClass = canalTotalTitulosPromoAtualVar > 0 ? 'green' : 'red';
+                  canalTotalTitulosPromoAtualVar = canalTotalTitulosPromoAtualVar.toFixed(2).replace('.', ',');
     
                   return `
                   <div>
                     <p class="legenda">${canal}</p>
-                    <p class="${varClass}">${var_}%</p>
+                    <p class="${canalTotalTitulosPromoAtualVarClass}">${canalTotalTitulosPromoAtualVar}%</p>
                   </div>
                   `;
                 }).join('')}
