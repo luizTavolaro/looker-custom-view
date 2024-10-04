@@ -191,14 +191,14 @@ looker.plugins.visualizations.add({
               <div class="col">
                 <div>
                   <p class="legenda">Total</p>
-                  <p>${((totalVendas / valorTotal) - 1) * 100}%</p>
+                  <p>${(((totalVendas / valorTotal) - 1) * 100).toFixed(2).replace('.', ',')}%</p>
                 </div>
 
                 <!-- Divs for Each Canal -->
                 ${Object.keys(totalsByProduct[produto].canais).map(canal => {
                   var canalTotalVendas = totalsByProduct[produto].canais[canal].totalVendas;
                   var canalValorTotal = totalsByProduct[produto].canais[canal].valorTotal;
-                  var var_ = ((canalTotalVendas / canalValorTotal) - 1) * 100
+                  var var_ = (((canalTotalVendas / canalValorTotal) - 1) * 100).toFixed(2).replace('.', ',')
                   return `
                   <div>
                     <p class="legenda">${canal}</p>
@@ -211,14 +211,14 @@ looker.plugins.visualizations.add({
               <div class="col">
                 <div>
                   <p class="legenda">Total</p>
-                  <p>${((totalVendas / valorTotal) - 1) * 100}%</p>
+                  <p>${(((totalVendas / valorTotal) - 1) * 100).toFixed(2).replace('.', ',')}%</p>
                 </div>
 
                 <!-- Divs for Each Canal -->
                 ${Object.keys(totalsByProduct[produto].canais).map(canal => {
                   var canalTotalVendas = totalsByProduct[produto].canais[canal].totalVendas;
                   var canalValorTotal = totalsByProduct[produto].canais[canal].valorTotal;
-                  var var_ = ((canalTotalVendas / canalValorTotal) - 1) * 100
+                  var var_ = (((canalTotalVendas / canalValorTotal) - 1) * 100).toFixed(2).replace('.', ',')
                   return `
                   <div>
                     <p class="legenda">${canal}</p>
