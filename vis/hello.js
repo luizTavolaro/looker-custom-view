@@ -139,7 +139,7 @@ looker.plugins.visualizations.add({
     // First pass: accumulate totals and store rows by product and canal
     data.forEach(function(row) {
       let produto = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[0].name]);
-      let codigoProduto = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[1].name]);
+      let codigoProduto = row[queryResponse.fields.dimensions[1].name].toString();
       let canal = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[2].name]);
       let edicao = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[3].name]);
       let sorteio = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[4].name]);
@@ -200,7 +200,7 @@ looker.plugins.visualizations.add({
       let edicao = totalsByProduct[produto].edicao;
       let sorteio = totalsByProduct[produto].sorteio;
       let valor = totalsByProduct[produto].valor;
-      let codigoProduto = totalsByProduct[produto].codigoProduto.toString();
+      let codigoProduto = totalsByProduct[produto].codigoProduto;
 
       // Verificação de divisão por zero para total do produto
       var totalTitulosPromoAtualVar = (totalTitulosPromoAtual == 0 || totalTitulosPromoAnterior == 0)
