@@ -55,6 +55,7 @@ looker.plugins.visualizations.add({
 
         .edicao {
             width: 12%;
+            margin: 10px 0px;
         }
 
         p {
