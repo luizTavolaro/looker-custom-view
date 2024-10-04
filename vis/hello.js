@@ -132,20 +132,22 @@ looker.plugins.visualizations.add({
       let edicao = totalsByProduct[produto].edicao;
       let sorteio = totalsByProduct[produto].sorteio;
       let valor = totalsByProduct[produto].valor;
-
-      var totalVendasVar = (valorTotal == 0) ? 0 : ((totalVendas / valorTotal) - 1) * 100;
+    
+      // Verificação de divisão por zero para total do produto
+      var totalVendasVar = (valorTotal == 0 || totalVendas == 0) ? 0 : ((totalVendas / valorTotal - 1) * 100);
       totalVendasVar = totalVendasVar.toFixed(2).replace('.', ',');
-
-      var valorTotalVar = (valorTotal == 0) ? 0 : ((totalVendas / valorTotal) - 1) * 100;
+    
+      var valorTotalVar = (valorTotal == 0 || totalVendas == 0) ? 0 : ((totalVendas / valorTotal - 1) * 100);
       valorTotalVar = valorTotalVar.toFixed(2).replace('.', ',');
-      // For each product, create the HTML block
+    
+      // Construção do HTML
       htmlContent += `
         <div class="resumo">
           <header>
             <span>${produto}</span>
             <span>Data do Sorteio: ${sorteio}</span>
           </header>
-
+    
           <section>
             <div class="edicao">
               <p class="legenda">Edição</p>
@@ -156,14 +158,14 @@ looker.plugins.visualizations.add({
               <p>${valor}</p>
             </div>
             <div class="totais">
-              <!-- Div for Product Total -->
+              <!-- Div para o Total do Produto -->
               <div class="col">
                 <div>
                   <p class="legenda">Total</p>
                   <p>${totalVendas}</p>
                 </div>
-
-                <!-- Divs for Each Canal -->
+    
+                <!-- Divs para Cada Canal -->
                 ${Object.keys(totalsByProduct[produto].canais).map(canal => {
                   var canalTotalVendas = totalsByProduct[produto].canais[canal].totalVendas;
                   return `
@@ -174,14 +176,14 @@ looker.plugins.visualizations.add({
                   `;
                 }).join('')}
               </div>
-
+    
               <div class="col">
                 <div>
                   <p class="legenda">Total</p>
                   <p>${valorTotal}</p>
                 </div>
-
-                <!-- Divs for Each Canal -->
+    
+                <!-- Divs para Cada Canal -->
                 ${Object.keys(totalsByProduct[produto].canais).map(canal => {
                   var canalValorTotal = totalsByProduct[produto].canais[canal].valorTotal;
                   return `
@@ -192,21 +194,22 @@ looker.plugins.visualizations.add({
                   `;
                 }).join('')}
               </div>
-
+    
               <div class="col">
                 <div>
                   <p class="legenda">Total</p>
                   <p>${totalVendasVar}%</p>
                 </div>
-
-                <!-- Divs for Each Canal -->
+    
+                <!-- Divs para Cada Canal -->
                 ${Object.keys(totalsByProduct[produto].canais).map(canal => {
                   var canalTotalVendas = totalsByProduct[produto].canais[canal].totalVendas;
                   var canalValorTotal = totalsByProduct[produto].canais[canal].valorTotal;
-
-                  var var_ = (valorTotal == 0) ? 0 : (((canalTotalVendas / canalValorTotal) - 1) * 100);
+    
+                  // Verificação de divisão por zero para cada canal
+                  var var_ = (canalValorTotal == 0 || canalTotalVendas == 0) ? 0 : (((canalTotalVendas / canalValorTotal) - 1) * 100);
                   var_ = var_.toFixed(2).replace('.', ',');
-
+    
                   return `
                   <div>
                     <p class="legenda">${canal}</p>
@@ -215,21 +218,22 @@ looker.plugins.visualizations.add({
                   `;
                 }).join('')}
               </div>
-
+    
               <div class="col">
                 <div>
                   <p class="legenda">Total</p>
                   <p>${valorTotalVar}%</p>
                 </div>
-
-                <!-- Divs for Each Canal -->
+    
+                <!-- Divs para Cada Canal -->
                 ${Object.keys(totalsByProduct[produto].canais).map(canal => {
                   var canalTotalVendas = totalsByProduct[produto].canais[canal].totalVendas;
                   var canalValorTotal = totalsByProduct[produto].canais[canal].valorTotal;
-
-                  var var_ = (valorTotal == 0) ? 0 : (((canalTotalVendas / canalValorTotal) - 1) * 100);
+    
+                  // Verificação de divisão por zero para cada canal
+                  var var_ = (canalValorTotal == 0 || canalTotalVendas == 0) ? 0 : (((canalTotalVendas / canalValorTotal) - 1) * 100);
                   var_ = var_.toFixed(2).replace('.', ',');
-                  
+    
                   return `
                   <div>
                     <p class="legenda">${canal}</p>
@@ -238,7 +242,7 @@ looker.plugins.visualizations.add({
                   `;
                 }).join('')}
               </div>
-
+    
             </div>
           </section>
         </div>
