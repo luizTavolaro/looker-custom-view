@@ -161,7 +161,9 @@ looker.plugins.visualizations.add({
           canais: {},
           edicao: edicao,
           valor: valor,
-          sorteio:sorteio };
+          sorteio: sorteio,
+          codigoProduto: codigoProduto
+        };
       }
 
       // Accumulate the totals for the product
@@ -198,6 +200,7 @@ looker.plugins.visualizations.add({
       let edicao = totalsByProduct[produto].edicao;
       let sorteio = totalsByProduct[produto].sorteio;
       let valor = totalsByProduct[produto].valor;
+      let codigoProduto = totalsByProduct[produto].codigoProduto;
 
       // Verificação de divisão por zero para total do produto
       var totalTitulosPromoAtualVar = (totalTitulosPromoAtual == 0 || totalTitulosPromoAnterior == 0)
@@ -220,8 +223,7 @@ looker.plugins.visualizations.add({
         <div class="resumo">
           <header>
             <div class="logo">
-                <img src="https://storage.googleapis.com/idea-data-homol-looker-artifacty/logo/trijoinville.png"/>
-                <p>${codigoProduto}</p>
+                <img src="https://storage.googleapis.com/idea-data-homol-looker-artifacty/logo/${codigoProduto}.png"/>
                 <p>${produto}</p>
             </div>
             <div>
