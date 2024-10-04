@@ -40,7 +40,6 @@ looker.plugins.visualizations.add({
             margin: 20px;
             font-family: Helvetica, Arial, sans-serif;
             width: 780px;
-            min-width: 780px;
             border-radius: 10px;
             box-shadow: rgb(220, 220, 220) 0px 7px 29px 0px;
         }
@@ -109,11 +108,11 @@ looker.plugins.visualizations.add({
                 font-size: 10px;
                 font-style: italic;
             }
-
+            
             .logo img {
-                width: 125px;
+                height: 50px;
             }
-
+            
             .resumo {
               font-size: 18px;
               width: 100%;
