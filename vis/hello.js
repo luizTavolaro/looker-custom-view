@@ -220,7 +220,7 @@ looker.plugins.visualizations.add({
         <div class="resumo">
           <header>
             <div class="logo">
-                <img src="https://storage.googleapis.com/front-objects-mobile/icons/logo_mogi.png"/>
+                <img src="https://storage.googleapis.com/idea-data-homol-looker-artifacty/logo/${codigoProduto}.png"/>
                 <p>${produto}</p>
             </div>
             <div>
