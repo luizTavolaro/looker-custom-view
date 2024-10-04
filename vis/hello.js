@@ -58,7 +58,7 @@ looker.plugins.visualizations.add({
             padding: 0px 15px;
         }
 
-        section * p {
+        p {
             padding: 0px;
             margin: 0px;
         }
