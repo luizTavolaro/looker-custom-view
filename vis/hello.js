@@ -133,10 +133,10 @@ looker.plugins.visualizations.add({
       let sorteio = totalsByProduct[produto].sorteio;
       let valor = totalsByProduct[produto].valor;
 
-      var totalVendasVar = (valorTotal === 0) ? 0 : ((totalVendas / valorTotal) - 1) * 100;
+      var totalVendasVar = (valorTotal == 0) ? 0 : ((totalVendas / valorTotal) - 1) * 100;
       totalVendasVar = totalVendasVar.toFixed(2).replace('.', ',');
 
-      var valorTotalVar = (valorTotal === 0) ? 0 : ((totalVendas / valorTotal) - 1) * 100;
+      var valorTotalVar = (valorTotal == 0) ? 0 : ((totalVendas / valorTotal) - 1) * 100;
       valorTotalVar = valorTotalVar.toFixed(2).replace('.', ',');
       // For each product, create the HTML block
       htmlContent += `
@@ -204,7 +204,7 @@ looker.plugins.visualizations.add({
                   var canalTotalVendas = totalsByProduct[produto].canais[canal].totalVendas;
                   var canalValorTotal = totalsByProduct[produto].canais[canal].valorTotal;
 
-                  var var_ = (valorTotal === 0) ? 0 : (((canalTotalVendas / canalValorTotal) - 1) * 100);
+                  var var_ = (valorTotal == 0) ? 0 : (((canalTotalVendas / canalValorTotal) - 1) * 100);
                   var_ = var_.toFixed(2).replace('.', ',');
 
                   return `
@@ -227,7 +227,7 @@ looker.plugins.visualizations.add({
                   var canalTotalVendas = totalsByProduct[produto].canais[canal].totalVendas;
                   var canalValorTotal = totalsByProduct[produto].canais[canal].valorTotal;
 
-                  var var_ = (valorTotal === 0) ? 0 : (((canalTotalVendas / canalValorTotal) - 1) * 100);
+                  var var_ = (valorTotal == 0) ? 0 : (((canalTotalVendas / canalValorTotal) - 1) * 100);
                   var_ = var_.toFixed(2).replace('.', ',');
                   
                   return `
