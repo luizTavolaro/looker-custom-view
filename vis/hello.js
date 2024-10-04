@@ -58,7 +58,7 @@ looker.plugins.visualizations.add({
             align-items: center;
             background-color: rgba(210, 210, 210, 0.5);
             border-radius: 0px 0px 10px 10px;
-            width: 100%;   
+            width: 100%;
         }
 
         .edicao {
@@ -103,19 +103,20 @@ looker.plugins.visualizations.add({
         .red {
             color: red;
         }
-          
+
         @media (max-width: 768px) {
             .legenda {
                 font-size: 10px;
                 font-style: italic;
             }
-            
+
             .logo img {
                 width: 125px;
             }
-            
+
             .resumo {
               font-size: 18px;
+              width: 300px;
             }
         }
 
@@ -152,14 +153,14 @@ looker.plugins.visualizations.add({
 
       // Initialize the product key if it doesn't exist
       if (!totalsByProduct[produto]) {
-        totalsByProduct[produto] = { 
-          totalTitulosPromoAtual: 0, 
-          totalTitulosDiaAtualPromoAtual: 0, 
-          totalTitulosPromoAnterior: 0, 
-          totalTitulosDiaAtualPromoAnterior: 0, 
-          canais: {}, 
-          edicao: edicao, 
-          valor: valor, 
+        totalsByProduct[produto] = {
+          totalTitulosPromoAtual: 0,
+          totalTitulosDiaAtualPromoAtual: 0,
+          totalTitulosPromoAnterior: 0,
+          totalTitulosDiaAtualPromoAnterior: 0,
+          canais: {},
+          edicao: edicao,
+          valor: valor,
           sorteio:sorteio };
       }
 
@@ -171,11 +172,11 @@ looker.plugins.visualizations.add({
 
       // Store data for each canal
       if (!totalsByProduct[produto].canais[canal]) {
-        totalsByProduct[produto].canais[canal] = { 
-          totalTitulosPromoAtual: 0, 
+        totalsByProduct[produto].canais[canal] = {
+          totalTitulosPromoAtual: 0,
           totalTitulosDiaAtualPromoAtual: 0,
-          totalTitulosPromoAnterior: 0, 
-          totalTitulosDiaAtualPromoAnterior: 0, 
+          totalTitulosPromoAnterior: 0,
+          totalTitulosDiaAtualPromoAnterior: 0,
         };
       }
 
@@ -197,22 +198,22 @@ looker.plugins.visualizations.add({
       let edicao = totalsByProduct[produto].edicao;
       let sorteio = totalsByProduct[produto].sorteio;
       let valor = totalsByProduct[produto].valor;
-    
+
       // Verificação de divisão por zero para total do produto
-      var totalTitulosPromoAtualVar = (totalTitulosPromoAtual == 0 || totalTitulosPromoAnterior == 0) 
-        ? 0 
+      var totalTitulosPromoAtualVar = (totalTitulosPromoAtual == 0 || totalTitulosPromoAnterior == 0)
+        ? 0
         : ((totalTitulosPromoAtual / totalTitulosPromoAnterior - 1) * 100);
       var totalTitulosPromoAtualVarClass = totalTitulosPromoAtualVar > 0 ? 'green' : 'red';
       totalTitulosPromoAtualVar = totalTitulosPromoAtualVar.toFixed(2).replace('.', ',');
 
-      var totalTitulosDiaAtualPromoAtualVar = (totalTitulosDiaAtualPromoAtual == 0 || totalTitulosDiaAtualPromoAnterior == 0) 
-        ? 0 
+      var totalTitulosDiaAtualPromoAtualVar = (totalTitulosDiaAtualPromoAtual == 0 || totalTitulosDiaAtualPromoAnterior == 0)
+        ? 0
         : ((totalTitulosDiaAtualPromoAtual / totalTitulosDiaAtualPromoAnterior - 1) * 100);
       var totalTitulosDiaAtualPromoAtualVarClass = totalTitulosDiaAtualPromoAtualVar > 0 ? 'green' : 'red';
       totalTitulosDiaAtualPromoAtualVar = totalTitulosDiaAtualPromoAtualVar.toFixed(2).replace('.', ',');
-    
+
       // Determina a classe CSS para cor
-    
+
       // Construção do HTML
       htmlContent += `
       <div class="dash">
@@ -220,14 +221,14 @@ looker.plugins.visualizations.add({
           <header>
             <div class="logo">
                 <img src="https://hipercapbrasil.com.br/wp-content/uploads/2021/02/hc_brasil_branco.png"/>
-                <p>${produto}</p>
+                <!-- <p>${produto}</p> -->
             </div>
             <div>
               <p class="legenda">Data do Sorteio</p>
               <p>${sorteio}</p>
             </div>
           </header>
-    
+
           <section>
             <div class="promocao">
                 <div class="edicao">
@@ -246,7 +247,7 @@ looker.plugins.visualizations.add({
                   <p class="legenda">Total</p>
                   <p>${totalTitulosPromoAtual}</p>
                 </div>
-    
+
                 <!-- Divs para Cada Canal -->
                 ${Object.keys(totalsByProduct[produto].canais).map(canal => {
                   var canalTotalTitulosPromoAtual = totalsByProduct[produto].canais[canal].totalTitulosPromoAtual;
@@ -258,13 +259,13 @@ looker.plugins.visualizations.add({
                   `;
                 }).join('')}
               </div>
-    
+
               <div class="col">
                 <div>
                   <p class="legenda">Dia</p>
                   <p>${totalTitulosDiaAtualPromoAtual}</p>
                 </div>
-    
+
                 <!-- Divs para Cada Canal -->
                 ${Object.keys(totalsByProduct[produto].canais).map(canal => {
                   var canalTotalTitulosDiaAtualPromoAtual = totalsByProduct[produto].canais[canal].totalTitulosDiaAtualPromoAtual;
@@ -276,23 +277,23 @@ looker.plugins.visualizations.add({
                   `;
                 }).join('')}
               </div>
-    
+
               <div class="col">
                 <div>
                   <p class="legenda">Total</p>
                   <p class="${totalTitulosPromoAtualVarClass}">${totalTitulosPromoAtualVar}%</p>
                 </div>
-    
+
                 <!-- Divs para Cada Canal -->
                 ${Object.keys(totalsByProduct[produto].canais).map(canal => {
                   var canalTotalTitulosPromoAtual = totalsByProduct[produto].canais[canal].totalTitulosPromoAtual;
                   var canalTotalTitulosPromoAnterior = totalsByProduct[produto].canais[canal].totalTitulosPromoAnterior;
-    
+
                   // Verificação de divisão por zero para cada canal
                   var canalTotalTitulosPromoAtualVar = (canalTotalTitulosPromoAtual == 0 || canalTotalTitulosPromoAnterior == 0) ? 0 : (((canalTotalTitulosPromoAtual / canalTotalTitulosPromoAnterior) - 1) * 100);
                   var canalTotalTitulosPromoAtualVarClass = canalTotalTitulosPromoAtualVar > 0 ? 'green' : 'red';
                   canalTotalTitulosPromoAtualVar = canalTotalTitulosPromoAtualVar.toFixed(2).replace('.', ',');
-    
+
                   return `
                   <div>
                     <p class="legenda">${canal}</p>
@@ -301,23 +302,23 @@ looker.plugins.visualizations.add({
                   `;
                 }).join('')}
               </div>
-    
+
               <div class="col">
                 <div>
                   <p class="legenda">Dia</p>
                   <p class="${totalTitulosDiaAtualPromoAtualVarClass}">${totalTitulosDiaAtualPromoAtualVar}%</p>
                 </div>
-    
+
                 <!-- Divs para Cada Canal -->
                 ${Object.keys(totalsByProduct[produto].canais).map(canal => {
                   var canalTotalTitulosDiaAtualPromoAtual = totalsByProduct[produto].canais[canal].totalTitulosDiaAtualPromoAtual;
                   var canalTotalTitulosDiaAtualPromoAnterior = totalsByProduct[produto].canais[canal].totalTitulosDiaAtualPromoAnterior;
-    
+
                   // Verificação de divisão por zero para cada canal
                   var canalTotalTitulosPromoAtualVar = (canalTotalTitulosDiaAtualPromoAtual == 0 || canalTotalTitulosDiaAtualPromoAnterior == 0) ? 0 : (((canalTotalTitulosDiaAtualPromoAtual / canalTotalTitulosDiaAtualPromoAnterior) - 1) * 100);
                   var canalTotalTitulosPromoAtualVarClass = canalTotalTitulosPromoAtualVar > 0 ? 'green' : 'red';
                   canalTotalTitulosPromoAtualVar = canalTotalTitulosPromoAtualVar.toFixed(2).replace('.', ',');
-    
+
                   return `
                   <div>
                     <p class="legenda">${canal}</p>
@@ -326,14 +327,14 @@ looker.plugins.visualizations.add({
                   `;
                 }).join('')}
               </div>
-    
+
             </div>
           </section>
         </div>
       </div>
       `;
     });
-    
+
 
     // Insert the generated HTML into the container
     this._tableElement.innerHTML = htmlContent;
