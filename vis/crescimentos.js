@@ -1,14 +1,67 @@
 looker.plugins.visualizations.add({
   options: {
-    font_size: {
-      type: "string",
-      label: "Font Size",
-      values: [
-        {"Large": "large"},
-        {"Small": "small"}
-      ],
-      display: "radio",
-      default: "large"
+    produto_field: {
+      type: "field",
+      label: "Campo Produto",
+      section: "Campos",
+      display: "select",
+      placeholder: "Escolha o campo de produto",
+    },
+    canal_field: {
+      type: "field",
+      label: "Campo Canal",
+      section: "Campos",
+      display: "select",
+      placeholder: "Escolha o campo de canal",
+    },
+    edicao_field: {
+      type: "field",
+      label: "Campo Edição",
+      section: "Campos",
+      display: "select",
+      placeholder: "Escolha o campo de edição",
+    },
+    sorteio_field: {
+      type: "field",
+      label: "Campo Sorteio",
+      section: "Campos",
+      display: "select",
+      placeholder: "Escolha o campo de sorteio",
+    },
+    valor_field: {
+      type: "field",
+      label: "Campo Valor",
+      section: "Campos",
+      display: "select",
+      placeholder: "Escolha o campo de valor",
+    },
+    totalTitulosPromoAtual_field: {
+      type: "field",
+      label: "Total Títulos Promo Atual",
+      section: "Títulos",
+      display: "select",
+      placeholder: "Escolha a medida de total promo atual",
+    },
+    totalTitulosDiaAtualPromoAtual_field: {
+      type: "field",
+      label: "Total Títulos Dia Atual Promo Atual",
+      section: "Títulos",
+      display: "select",
+      placeholder: "Escolha a medida de total dia atual promo",
+    },
+    totalTitulosPromoAnterior_field: {
+      type: "field",
+      label: "Total Títulos Promo Anterior",
+      section: "Títulos",
+      display: "select",
+      placeholder: "Escolha a medida de total promo anterior",
+    },
+    totalTitulosDiaAtualPromoAnterior_field: {
+      type: "field",
+      label: "Total Títulos Dia Atual Promo Anterior",
+      section: "Títulos",
+      display: "select",
+      placeholder: "Escolha a medida de total dia atual promo anterior",
     }
   },
 
@@ -135,22 +188,64 @@ looker.plugins.visualizations.add({
       return;
     }
 
+    // Verifica se os campos foram selecionados
+    let produtoField = config.produto_field;
+    let canalField = config.canal_field;
+    let edicaoField = config.edicao_field;
+    let sorteioField = config.sorteio_field;
+    let valorField = config.valor_field;
+
+    let totalTitulosPromoAtualField = config.totalTitulosPromoAtual_field;
+    let totalTitulosDiaAtualPromoAtualField = config.totalTitulosDiaAtualPromoAtual_field;
+    let totalTitulosPromoAnteriorField = config.totalTitulosPromoAnterior_field;
+    let totalTitulosDiaAtualPromoAnteriorField = config.totalTitulosDiaAtualPromoAnterior_field;
+
     let totalsByProduct = {};
+
+    var produto;
+    var codigoProduto;
+    var canal;
+    var edicao;
+    var sorteio;
+    var valor;
+
+    var totalTitulosPromoAtual;
+    var totalTitulosDiaAtualPromoAtual;
+    var totalTitulosPromoAnterior;
+    var totalTitulosDiaAtualPromoAnterior;
 
     // First pass: accumulate totals and store rows by product and canal
     data.forEach(function(row) {
-      let produto = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[0].name]);
-      let codigoProduto = row[queryResponse.fields.dimensions[1].name].value;
-      let canal = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[2].name]);
-      let edicao = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[3].name]);
-      let sorteio = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[4].name]);
-      let valor = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[5].name]);
-
-      let totalTitulosPromoAtual = parseFloat(row[queryResponse.fields.measures[0].name].value);
-      let totalTitulosDiaAtualPromoAtual = parseFloat(row[queryResponse.fields.measures[1].name].value);
-
-      let totalTitulosPromoAnterior = parseFloat(row[queryResponse.fields.measures[2].name].value);
-      let totalTitulosDiaAtualPromoAnterior = parseFloat(row[queryResponse.fields.measures[3].name].value);
+      // Verifica se os campos obrigatórios foram escolhidos
+      if (!produtoField || !canalField || !edicaoField || !sorteioField || !valorField ||
+        !totalTitulosPromoAtualField || !totalTitulosDiaAtualPromoAtualField ||
+        !totalTitulosPromoAnteriorField || !totalTitulosDiaAtualPromoAnteriorField) {
+          produto = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[0].name]);
+          codigoProduto = row[queryResponse.fields.dimensions[1].name].value;
+          canal = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[2].name]);
+          edicao = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[3].name]);
+          sorteio = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[4].name]);
+          valor = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[5].name]);
+    
+          totalTitulosPromoAtual = parseFloat(row[queryResponse.fields.measures[0].name].value);
+          totalTitulosDiaAtualPromoAtual = parseFloat(row[queryResponse.fields.measures[1].name].value);
+    
+          totalTitulosPromoAnterior = parseFloat(row[queryResponse.fields.measures[2].name].value);
+          totalTitulosDiaAtualPromoAnterior = parseFloat(row[queryResponse.fields.measures[3].name].value);
+        return;
+      }
+      else {
+        produto = LookerCharts.Utils.htmlForCell(row[produtoField.name]);  // Use field.name para pegar o valor
+        canal = LookerCharts.Utils.htmlForCell(row[canalField.name]);
+        edicao = LookerCharts.Utils.htmlForCell(row[edicaoField.name]);
+        sorteio = LookerCharts.Utils.htmlForCell(row[sorteioField.name]);
+        valor = LookerCharts.Utils.htmlForCell(row[valorField.name]);
+  
+        totalTitulosPromoAtual = parseFloat(row[totalTitulosPromoAtualField.name].value);
+        totalTitulosDiaAtualPromoAtual = parseFloat(row[totalTitulosDiaAtualPromoAtualField.name].value);
+        totalTitulosPromoAnterior = parseFloat(row[totalTitulosPromoAnteriorField.name].value);
+        totalTitulosDiaAtualPromoAnterior = parseFloat(row[totalTitulosDiaAtualPromoAnteriorField.name].value);
+      }
 
       // Initialize the product key if it doesn't exist
       if (!totalsByProduct[produto]) {
