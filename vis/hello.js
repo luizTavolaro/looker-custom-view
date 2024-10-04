@@ -139,7 +139,7 @@ looker.plugins.visualizations.add({
     // First pass: accumulate totals and store rows by product and canal
     data.forEach(function(row) {
       let produto = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[0].name]);
-      let codigoProduto = row[queryResponse.fields.dimensions[1].name].toString();
+      let codigoProduto = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[1].name]);
       let canal = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[2].name]);
       let edicao = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[3].name]);
       let sorteio = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[4].name]);
