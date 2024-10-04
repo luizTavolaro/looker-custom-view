@@ -32,7 +32,7 @@ looker.plugins.visualizations.add({
         }
 
         .logo img {
-            width: 250px;
+            height: 100px;
         }
 
         .resumo {
