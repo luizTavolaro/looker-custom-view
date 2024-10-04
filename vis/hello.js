@@ -143,14 +143,14 @@ looker.plugins.visualizations.add({
     
       // Verificação de divisão por zero para total do produto
       var totalVendasVar = (valorTotal == 0 || totalVendas == 0) ? 0 : ((totalVendas / valorTotal - 1) * 100);
+      var valorTotalVarClass = valorTotalVar > 0 ? 'green' : 'red';
       totalVendasVar = totalVendasVar.toFixed(2).replace('.', ',');
     
       var valorTotalVar = (valorTotal == 0 || totalVendas == 0) ? 0 : ((totalVendas / valorTotal - 1) * 100);
+      var totalVendasVarClass = totalVendasVar > 0 ? 'green' : 'red';
       valorTotalVar = valorTotalVar.toFixed(2).replace('.', ',');
     
       // Determina a classe CSS para cor
-      var totalVendasVarClass = totalVendasVar > 0 ? 'green' : 'red';
-      var valorTotalVarClass = valorTotalVar > 0 ? 'green' : 'red';
     
       // Construção do HTML
       htmlContent += `
@@ -220,9 +220,8 @@ looker.plugins.visualizations.add({
     
                   // Verificação de divisão por zero para cada canal
                   var var_ = (canalValorTotal == 0 || canalTotalVendas == 0) ? 0 : (((canalTotalVendas / canalValorTotal) - 1) * 100);
-                  var_ = var_.toFixed(2).replace('.', ',');
-    
                   var varClass = var_ > 0 ? 'green' : 'red';
+                  var_ = var_.toFixed(2).replace('.', ',');
     
                   return `
                   <div>
@@ -246,9 +245,8 @@ looker.plugins.visualizations.add({
     
                   // Verificação de divisão por zero para cada canal
                   var var_ = (canalValorTotal == 0 || canalTotalVendas == 0) ? 0 : (((canalTotalVendas / canalValorTotal) - 1) * 100);
-                  var_ = var_.toFixed(2).replace('.', ',');
-    
                   var varClass = var_ > 0 ? 'green' : 'red';
+                  var_ = var_.toFixed(2).replace('.', ',');
     
                   return `
                   <div>
