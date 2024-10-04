@@ -133,6 +133,14 @@ looker.plugins.visualizations.add({
       let sorteio = totalsByProduct[produto].sorteio;
       let valor = totalsByProduct[produto].valor;
 
+      let resultado = (num2 === 0) ? 0 : (num1 / num2) * 100;
+      let resultadoArredondado = resultado.toFixed(2).replace('.', ',');
+
+      var totalVendasVar = (valorTotal === 0) ? 0 : ((totalVendas / valorTotal) - 1) * 100
+      totalVendasVar = totalVendasVar.toFixed(2).replace('.', ',')
+
+      var valorTotalVar = (valorTotal === 0) ? 0 : ((totalVendas / valorTotal) - 1) * 100
+      valorTotalVar = valorTotalVar.toFixed(2).replace('.', ',')
       // For each product, create the HTML block
       htmlContent += `
         <div class="resumo">
@@ -191,14 +199,17 @@ looker.plugins.visualizations.add({
               <div class="col">
                 <div>
                   <p class="legenda">Total</p>
-                  <p>${(((totalVendas / valorTotal) - 1) * 100).toFixed(2).replace('.', ',')}%</p>
+                  <p>${totalVendasVar}%</p>
                 </div>
 
                 <!-- Divs for Each Canal -->
                 ${Object.keys(totalsByProduct[produto].canais).map(canal => {
                   var canalTotalVendas = totalsByProduct[produto].canais[canal].totalVendas;
                   var canalValorTotal = totalsByProduct[produto].canais[canal].valorTotal;
-                  var var_ = (((canalTotalVendas / canalValorTotal) - 1) * 100).toFixed(2).replace('.', ',')
+
+                  var var_ = (valorTotal === 0) ? 0 : (((canalTotalVendas / canalValorTotal) - 1) * 100)
+                  var_ = var_.toFixed(2).replace('.', ',')
+
                   return `
                   <div>
                     <p class="legenda">${canal}</p>
@@ -211,14 +222,17 @@ looker.plugins.visualizations.add({
               <div class="col">
                 <div>
                   <p class="legenda">Total</p>
-                  <p>${(((totalVendas / valorTotal) - 1) * 100).toFixed(2).replace('.', ',')}%</p>
+                  <p>${valorTotalVar}%</p>
                 </div>
 
                 <!-- Divs for Each Canal -->
                 ${Object.keys(totalsByProduct[produto].canais).map(canal => {
                   var canalTotalVendas = totalsByProduct[produto].canais[canal].totalVendas;
                   var canalValorTotal = totalsByProduct[produto].canais[canal].valorTotal;
-                  var var_ = (((canalTotalVendas / canalValorTotal) - 1) * 100).toFixed(2).replace('.', ',')
+
+                  var var_ = (valorTotal === 0) ? 0 : (((canalTotalVendas / canalValorTotal) - 1) * 100)
+                  var_ = var_.toFixed(2).replace('.', ',')
+                  
                   return `
                   <div>
                     <p class="legenda">${canal}</p>
