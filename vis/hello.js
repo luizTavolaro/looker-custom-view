@@ -33,6 +33,7 @@ looker.plugins.visualizations.add({
 
         .logo img {
             height: 100px;
+            padding: 10px;
         }
 
         .resumo {
