@@ -296,7 +296,7 @@ looker.plugins.visualizations.add({
 
                   return `
                   <div>
-                    <p class="legenda">ΔTotal - ${canal}</p>
+                    <p class="legenda">ΔTotal</p>
                     <p class="${canalTotalTitulosPromoAtualVarClass}">${canalTotalTitulosPromoAtualVar}%</p>
                   </div>
                   `;
@@ -321,7 +321,7 @@ looker.plugins.visualizations.add({
 
                   return `
                   <div>
-                    <p class="legenda">ΔDia - ${canal}</p>
+                    <p class="legenda">ΔDia</p>
                     <p class="${canalTotalTitulosPromoAtualVarClass}">${canalTotalTitulosPromoAtualVar}%</p>
                   </div>
                   `;
