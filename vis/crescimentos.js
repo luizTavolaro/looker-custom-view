@@ -232,13 +232,13 @@ looker.plugins.visualizations.add({
         ? 0
         : ((totalTitulosPromoAtual / totalTitulosPromoAnterior - 1) * 100);
       var totalTitulosPromoAtualVarClass = totalTitulosPromoAtualVar > 0 ? 'green' : 'red';
-      totalTitulosPromoAtualVar = totalTitulosPromoAtualVar.toFixed(2).toLocaleString('pt-BR');
+      totalTitulosPromoAtualVar = totalTitulosPromoAtualVar.toFixed(2).replace('.', ',');
 
       var totalTitulosDiaAtualPromoAtualVar = (totalTitulosDiaAtualPromoAtual == 0 || totalTitulosDiaAtualPromoAnterior == 0)
         ? 0
         : ((totalTitulosDiaAtualPromoAtual / totalTitulosDiaAtualPromoAnterior - 1) * 100);
       var totalTitulosDiaAtualPromoAtualVarClass = totalTitulosDiaAtualPromoAtualVar > 0 ? 'green' : 'red';
-      totalTitulosDiaAtualPromoAtualVar = totalTitulosDiaAtualPromoAtualVar.toFixed(2).toLocaleString('pt-BR');
+      totalTitulosDiaAtualPromoAtualVar = totalTitulosDiaAtualPromoAtualVar.toFixed(2).replace('.', ',');
 
       // Construção do HTML
       htmlContent += `
@@ -317,7 +317,7 @@ looker.plugins.visualizations.add({
                   // Verificação de divisão por zero para cada canal
                   var canalTotalTitulosPromoAtualVar = (canalTotalTitulosPromoAtual == 0 || canalTotalTitulosPromoAnterior == 0) ? 0 : (((canalTotalTitulosPromoAtual / canalTotalTitulosPromoAnterior) - 1) * 100);
                   var canalTotalTitulosPromoAtualVarClass = canalTotalTitulosPromoAtualVar > 0 ? 'green' : 'red';
-                  canalTotalTitulosPromoAtualVar = canalTotalTitulosPromoAtualVar.toFixed(2).toLocaleString('pt-BR');
+                  canalTotalTitulosPromoAtualVar = canalTotalTitulosPromoAtualVar.toFixed(2).replace('.', ',');
 
                   return `
                   <div>
@@ -342,7 +342,7 @@ looker.plugins.visualizations.add({
                   // Verificação de divisão por zero para cada canal
                   var canalTotalTitulosPromoAtualVar = (canalTotalTitulosDiaAtualPromoAtual == 0 || canalTotalTitulosDiaAtualPromoAnterior == 0) ? 0 : (((canalTotalTitulosDiaAtualPromoAtual / canalTotalTitulosDiaAtualPromoAnterior) - 1) * 100);
                   var canalTotalTitulosPromoAtualVarClass = canalTotalTitulosPromoAtualVar > 0 ? 'green' : 'red';
-                  canalTotalTitulosPromoAtualVar = canalTotalTitulosPromoAtualVar.toFixed(2).toLocaleString('pt-BR');
+                  canalTotalTitulosPromoAtualVar = canalTotalTitulosPromoAtualVar.toFixed(2).replace('.', ',');
 
                   return `
                   <div>
