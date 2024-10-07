@@ -17,7 +17,7 @@ looker.plugins.visualizations.add({
       <style>
         .dash{
             display: flex;
-            justify-content: center;
+            align-items: center;
             flex-direction: column;
             font-family: Helvetica, Arial, sans-serif;
         }
@@ -238,10 +238,11 @@ looker.plugins.visualizations.add({
       totalTitulosDiaAtualPromoAtualVar = totalTitulosDiaAtualPromoAtualVar.toFixed(2).replace('.', ',');
 
       // Determina a classe CSS para cor
-
+      htmlContent += `
+        <div class="dash">
+      `
       // Construção do HTML
       htmlContent += `
-      <div class="dash">
         <div class="resumo">
           <header>
             <div class="logo">
@@ -356,13 +357,14 @@ looker.plugins.visualizations.add({
             </div>
           </section>
         </div>
+      `;
+    });
+    htmlContent += `
         <footer>
           <img src="https://storage.googleapis.com/idea-data-homol-looker-artifacty/logo/ideamaker.png">     
           <span>Relatórios Ideamaker</span>
         </footer>
-      </div>
-      `;
-    });
+      </div>`
 
 
     // Insert the generated HTML into the container
