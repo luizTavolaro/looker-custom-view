@@ -270,7 +270,7 @@ looker.plugins.visualizations.add({
               <div class="col">
                 <div>
                   <p class="legenda">Total</p>
-                  <p>${totalTitulosPromoAtual}</p>
+                  <p>${totalTitulosPromoAtual.toLocaleString('pt-BR')}</p>
                 </div>
 
                 <!-- Divs para Cada Canal -->
@@ -279,7 +279,7 @@ looker.plugins.visualizations.add({
                   return `
                   <div>
                     <p class="legenda">${canal}</p>
-                    <p>${canalTotalTitulosPromoAtual}</p>
+                    <p>${canalTotalTitulosPromoAtual.toLocaleString('pt-BR')}</p>
                   </div>
                   `;
                 }).join('')}
@@ -288,7 +288,7 @@ looker.plugins.visualizations.add({
               <div class="col">
                 <div>
                   <p class="legenda">Dia</p>
-                  <p>${totalTitulosDiaAtualPromoAtual}</p>
+                  <p>${totalTitulosDiaAtualPromoAtual.toLocaleString('pt-BR')}</p>
                 </div>
 
                 <!-- Divs para Cada Canal -->
@@ -297,7 +297,7 @@ looker.plugins.visualizations.add({
                   return `
                   <div>
                     <p class="legenda">${canal}</p>
-                    <p>${canalTotalTitulosDiaAtualPromoAtual}</p>
+                    <p>${canalTotalTitulosDiaAtualPromoAtual.toLocaleString('pt-BR')}</p>
                   </div>
                   `;
                 }).join('')}
