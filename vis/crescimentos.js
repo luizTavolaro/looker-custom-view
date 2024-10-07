@@ -245,7 +245,7 @@ looker.plugins.visualizations.add({
         <div class="resumo">
           <header>
             <div class="logo">
-                <img src="https://storage.googleapis.com/idea-data-homol-looker-artifacty/logo/${codigoProduto}.png" />
+                <img src="https://storage.googleapis.com/idea-data-252412-looker-artifacty/logos/${codigoProduto}.png" />
                 <p>${produto}</p>
             </div>
             <div>
@@ -360,7 +360,7 @@ looker.plugins.visualizations.add({
     });
     htmlContent += `
         <footer>
-          <img src="https://storage.googleapis.com/idea-data-homol-looker-artifacty/logo/ideamaker.png">     
+          <img src="https://storage.googleapis.com/idea-data-252412-looker-artifacty/logos/ideamaker.png">     
           <span>Relatórios Ideamaker</span>
         </footer>
       </div>`
