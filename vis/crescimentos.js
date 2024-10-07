@@ -18,6 +18,8 @@ looker.plugins.visualizations.add({
         .dash{
             display: flex;
             justify-content: center;
+            flex-direction: column;
+            font-family: Helvetica, Arial, sans-serif;
         }
 
         .legenda {
@@ -39,7 +41,6 @@ looker.plugins.visualizations.add({
         .resumo {
             font-size: 26px;
             margin: 20px;
-            font-family: Helvetica, Arial, sans-serif;
             width: 780px;
             border-radius: 10px;
             box-shadow: rgb(220, 220, 220) 0px 7px 29px 0px;
@@ -104,19 +105,39 @@ looker.plugins.visualizations.add({
             color: red;
         }
 
+        footer {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            margin: 0px 20px;
+        }
+
+        footer img {
+            height: 50px;
+            margin: 10px;
+        }
+
         @media (max-width: 768px) {
             .legenda {
                 font-size: 6px;
                 font-style: italic;
             }
-
+            
             .logo img {
                 height: 50px;
             }
-
+            
             .resumo {
               font-size: 12px;
               width: 100%;
+            }
+
+            footer {
+                font-size: 6px;
+            }
+            
+            footer img {
+                height: 40px;
             }
         }
 
@@ -335,6 +356,10 @@ looker.plugins.visualizations.add({
             </div>
           </section>
         </div>
+        <footer>
+          <img src="https://storage.googleapis.com/idea-data-homol-looker-artifacty/logo/ideamaker.png">     
+          <span>Relatórios Ideamaker</span>
+        </footer>
       </div>
       `;
     });
