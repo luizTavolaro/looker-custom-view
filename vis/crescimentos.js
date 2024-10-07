@@ -212,6 +212,9 @@ looker.plugins.visualizations.add({
 
     // Build the HTML for each product
     let htmlContent = '';
+    htmlContent += `
+      <div class="dash">
+    `
 
     Object.keys(totalsByProduct).forEach(function(produto) {
       var totalTitulosPromoAtual = totalsByProduct[produto].totalTitulosPromoAtual;
@@ -237,10 +240,6 @@ looker.plugins.visualizations.add({
       var totalTitulosDiaAtualPromoAtualVarClass = totalTitulosDiaAtualPromoAtualVar > 0 ? 'green' : 'red';
       totalTitulosDiaAtualPromoAtualVar = totalTitulosDiaAtualPromoAtualVar.toFixed(2).replace('.', ',');
 
-      // Determina a classe CSS para cor
-      htmlContent += `
-        <div class="dash">
-      `
       // Construção do HTML
       htmlContent += `
         <div class="resumo">
