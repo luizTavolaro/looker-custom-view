@@ -27,6 +27,26 @@ looker.plugins.visualizations.add({
   create: function(element, config) {
     element.innerHTML = `
       <style>
+        .links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        p {
+            padding: 10px;
+            margin: 10px;
+            box-shadow: rgb(220, 220, 220) 0px 7px 29px 0px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.5);
+        }
+
+        a {
+            font-size: 20px;
+            text-decoration: none;
+            font-family: Helvetica, Arial, sans-serif;
+            color: black;
+        }
       </style>
     `;
 
@@ -47,6 +67,7 @@ looker.plugins.visualizations.add({
     let filterName = config.filter_name || ''; // Nome do filtro na URL
 
     let htmlContent = '';
+    htmlContent =+ `<div class="links">`
 
     // Verifica se a URL do dashboard e o nome do filtro estão configurados
     if (!customUrl || !filterName) {
@@ -62,8 +83,9 @@ looker.plugins.visualizations.add({
       let filteredUrl = `${customUrl}?${filterName}=${encodeURIComponent(cellValue)}`;
 
       // Exibe o valor da célula como um link que aplica o filtro ao clicar
-      htmlContent += `<p><a href="${filteredUrl}" target="_blank">${cellValue}</a></p>`;
+      htmlContent += `<p><a href="${filteredUrl}">${cellValue}</a></p>`;
     });
+    htmlContent =+ `</div>`
 
     // Insere o HTML gerado no container
     this._tableElement.innerHTML = htmlContent;
