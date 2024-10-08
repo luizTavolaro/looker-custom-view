@@ -38,9 +38,9 @@ looker.plugins.visualizations.add({
       
       let htmlContent = '';
 
-      paginas.forEach(function(pg) {
-        htmlContent += `<p>${pg}</p>`;
-      });
+    //   paginas.forEach(function(pg) {
+      htmlContent += `<p>${pg}</p>`;
+    //   });
       
   
       // Insert the generated HTML into the container
