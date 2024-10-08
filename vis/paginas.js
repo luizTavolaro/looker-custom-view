@@ -74,7 +74,10 @@ looker.plugins.visualizations.add({
     let filterName = config.filter_name || ''; // Nome do filtro na URL
 
     let htmlContent = '';
-    htmlContent += `<div class="links">`
+    htmlContent += `
+    <div class="links">
+    <p><a href="${customUrl}">Total</a></p>
+    `
 
     // Verifica se a URL do dashboard e o nome do filtro estão configurados
     if (!customUrl || !filterName) {
