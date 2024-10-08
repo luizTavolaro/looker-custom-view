@@ -1,26 +1,16 @@
 looker.plugins.visualizations.add({
     options: {
-      font_size: {
-        type: "string",
-        label: "Font Size",
-        values: [
-          {"Large": "large"},
-          {"Small": "small"}
-        ],
-        display: "radio",
-        default: "large"
-      },
       custom_url: {
         type: "string",
         label: "Custom URL (Looker Dashboard)",
         display: "text",
-        default: "" // URL padrão vazia
+        default: ""
       },
       filter_name: {
         type: "string",
         label: "Filter Name",
         display: "text",
-        default: "" // Nome do filtro a ser usado na URL
+        default: ""
       }
     },
   
