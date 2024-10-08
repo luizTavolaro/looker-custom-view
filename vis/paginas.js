@@ -56,7 +56,7 @@ looker.plugins.visualizations.add({
 
     // Itera sobre cada linha e insere o valor da célula como link com filtro na URL
     data.forEach(function(row) {
-      let cellValue = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[0].name]);
+      let cellValue = LookerCharts.Utils.textForCell(row[queryResponse.fields.dimensions[0].name]);
 
       // Monta a URL com o filtro baseado no valor da célula
       let filteredUrl = `${customUrl}?${filterName}=${encodeURIComponent(cellValue)}`;
