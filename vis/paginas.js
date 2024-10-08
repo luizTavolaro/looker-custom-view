@@ -47,6 +47,13 @@ looker.plugins.visualizations.add({
             font-family: Helvetica, Arial, sans-serif;
             color: black;
         }
+
+        @media (max-width: 768px) {
+            a {
+              font-size: 10px;
+            }
+        }
+
       </style>
     `;
 
@@ -67,7 +74,7 @@ looker.plugins.visualizations.add({
     let filterName = config.filter_name || ''; // Nome do filtro na URL
 
     let htmlContent = '';
-    htmlContent =+ `<div class="links">`
+    htmlContent += `<div class="links">`
 
     // Verifica se a URL do dashboard e o nome do filtro estão configurados
     if (!customUrl || !filterName) {
@@ -85,7 +92,7 @@ looker.plugins.visualizations.add({
       // Exibe o valor da célula como um link que aplica o filtro ao clicar
       htmlContent += `<p><a href="${filteredUrl}">${cellValue}</a></p>`;
     });
-    htmlContent =+ `</div>`
+    htmlContent += `</div>`
 
     // Insere o HTML gerado no container
     this._tableElement.innerHTML = htmlContent;
