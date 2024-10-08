@@ -12,9 +12,9 @@ looker.plugins.visualizations.add({
     },
     custom_url: {
       type: "string",
-      label: "Custom URL",
+      label: "Custom Dashboard URL",
       display: "text",
-      default: "" // Define a URL padrão vazia
+      default: "" // A URL base do dashboard do Looker
     }
   },
 
@@ -36,7 +36,7 @@ looker.plugins.visualizations.add({
       return;
     }
 
-    // Captura a URL personalizada inserida pelo usuário nas configurações
+    // Captura a URL do dashboard personalizada inserida pelo usuário
     let customUrl = config.custom_url || '';
 
     let htmlContent = '';
@@ -45,8 +45,11 @@ looker.plugins.visualizations.add({
     data.forEach(function(row) {
       let cellValue = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[0].name]);
 
-      // Exibe o valor da célula e a URL personalizada inserida
-      htmlContent += `<p>${cellValue} - <a href="${customUrl}" target="_blank">${customUrl}</a></p>`;
+      // Monta a URL com o filtro dinâmico
+      let dashboardUrl = `${customUrl}?f[${queryResponse.fields.dimensions[0].name}]=${encodeURIComponent(cellValue)}`;
+
+      // Exibe o valor da célula e o transforma em um link que direciona para o dashboard com o filtro
+      htmlContent += `<p><a href="${dashboardUrl}" target="_blank">${cellValue}</a></p>`;
     });
 
     // Insere o HTML gerado no container
