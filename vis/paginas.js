@@ -12,9 +12,15 @@ looker.plugins.visualizations.add({
     },
     custom_url: {
       type: "string",
-      label: "Custom Dashboard URL",
+      label: "Custom URL (Looker Dashboard)",
       display: "text",
-      default: "" // A URL base do dashboard do Looker
+      default: "" // URL padrão vazia
+    },
+    filter_name: {
+      type: "string",
+      label: "Filter Name",
+      display: "text",
+      default: "" // Nome do filtro a ser usado na URL
     }
   },
 
@@ -36,20 +42,27 @@ looker.plugins.visualizations.add({
       return;
     }
 
-    // Captura a URL do dashboard personalizada inserida pelo usuário
+    // Captura a URL personalizada e o nome do filtro inserido pelo usuário
     let customUrl = config.custom_url || '';
+    let filterName = config.filter_name || ''; // Nome do filtro na URL
 
     let htmlContent = '';
 
-    // Itera sobre cada linha e insere o valor da célula dentro da tag <p>
+    // Verifica se a URL do dashboard e o nome do filtro estão configurados
+    if (!customUrl || !filterName) {
+      this.addError({title: "Configuration Error", message: "You must provide a dashboard URL and filter name."});
+      return;
+    }
+
+    // Itera sobre cada linha e insere o valor da célula como link com filtro na URL
     data.forEach(function(row) {
       let cellValue = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[0].name]);
 
-      // Monta a URL com o filtro dinâmico
-      let dashboardUrl = `${customUrl}?f[${queryResponse.fields.dimensions[0].name}]=${encodeURIComponent(cellValue)}`;
+      // Monta a URL com o filtro baseado no valor da célula
+      let filteredUrl = `${customUrl}?${filterName}=${encodeURIComponent(cellValue)}`;
 
-      // Exibe o valor da célula e o transforma em um link que direciona para o dashboard com o filtro
-      htmlContent += `<p><a href="${dashboardUrl}" target="_blank">${cellValue}</a></p>`;
+      // Exibe o valor da célula como um link que aplica o filtro ao clicar
+      htmlContent += `<p><a href="${filteredUrl}" target="_blank">${cellValue}</a></p>`;
     });
 
     // Insere o HTML gerado no container
