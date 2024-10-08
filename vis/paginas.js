@@ -30,25 +30,18 @@ looker.plugins.visualizations.add({
         return;
       }
   
-      let paginas;
-  
-      data.forEach(function(row) {
-        paginas = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[0].name]);
-      });
-      
       let htmlContent = '';
-
-    //   paginas.forEach(function(pg) {
-      htmlContent += `<p>${pg}</p>`;
-    //   });
-      
   
-      // Insert the generated HTML into the container
+      // Itera sobre cada linha e insere o valor dentro da tag <p>
+      data.forEach(function(row) {
+        let cellValue = LookerCharts.Utils.htmlForCell(row[queryResponse.fields.dimensions[0].name]);
+        htmlContent += `<p>${cellValue}</p>`;
+      });
+  
+      // Insere o HTML gerado no container
       this._tableElement.innerHTML = htmlContent;
   
       done();
     }
-  
-  
   });
   
