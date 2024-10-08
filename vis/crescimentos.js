@@ -1,15 +1,5 @@
 looker.plugins.visualizations.add({
   options: {
-    font_size: {
-      type: "string",
-      label: "Font Size",
-      values: [
-        {"Large": "large"},
-        {"Small": "small"}
-      ],
-      display: "radio",
-      default: "large"
-    }
   },
 
   create: function(element, config) {
